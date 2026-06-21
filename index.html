@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Play – Jornada do Mestre</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/dracula.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #0b1a2e 0%, #1a2f3f 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+            width: 100%;
+            background: rgba(255, 255, 255, .06);
+            backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+            border: 1px solid rgba(255, 255, 255, .05);
+        }
+
+        .tela {
+            display: none;
+            animation: fadeIn .4s ease;
+        }
+
+        .tela.ativa {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .tela-login {
+            text-align: center;
+            padding: 30px 10px 40px;
+        }
+
+        .logo-python {
+            font-size: 5rem;
+            display: inline-block;
+            filter: drop-shadow(0 8px 20px rgba(255, 215, 0, .3));
+            animation: flutuar 3s ease-in-out infinite;
+        }
+
+        @keyframes flutuar {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .tela-login h1 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: #f0f4fa;
+            margin: 10px 0 6px;
+        }
+
+        .tela-login p {
+            color: #a0b9d4;
+            font-size: 1.1rem;
+            margin-bottom: 28px;
+        }
+
+        .caixa-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .input-nome {
+            padding: 14px 20px;
+            font-size: 1rem;
+            width: 100%;
+            max-width: 360px;
+            border: 2px solid #2c4055;
+            border-radius: 16px;
+            background: #1a2a3a;
+            color: #e8edf3;
+            text-align: center;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .input-nome:focus {
+            border-color: #f7c948;
+            box-shadow: 0 0 0 4px rgba(247, 201, 72, .15);
+        }
+
+        .btn {
+            background: #f7c948;
+            color: #0b1a2e;
+            border: none;
+            padding: 14px 34px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all .2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(247, 201, 72, .25);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            background: #fada5e;
+            box-shadow: 0 8px 25px rgba(247, 201, 72, .4);
+        }
+
+        .btn:active {
+            transform: scale(.97);
+        }
+
+        .btn-secundario {
+            background: transparent;
+            color: #b0c9e0;
+            box-shadow: none;
+            border: 2px solid #2c4055;
+            padding: 10px 24px;
+            font-size: .95rem;
+        }
+
+        .btn-secundario:hover {
+            background: rgba(255, 255, 255, .05);
+            color: #fff;
+            border-color: #f7c948;
+        }
+
+        .btn-perigo {
+            background: #e74c3c;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(231, 76, 60, .25);
+        }
+
+        .btn-perigo:hover {
+            background: #c0392b;
+        }
+
+        .btn-sair {
+            background: transparent;
+            color: #b0c9e0;
+            border: 1px solid #3a4f64;
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: .9rem;
+            font-weight: 600;
+            transition: .2s;
+            cursor: pointer;
+        }
+
+        .btn-sair:hover {
+            background: rgba(255, 255, 255, .05);
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .btn-pequeno {
+            background: transparent;
+            color: #b0c9e0;
+            border: 1px solid #2c4055;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: .8rem;
+            cursor: pointer;
+            transition: .2s;
+            font-weight: 600;
+        }
+
+        .btn-pequeno:hover {
+            background: rgba(247, 201, 72, .12);
+            border-color: #f7c948;
+            color: #f7c948;
+        }
+
+        .btn-pequeno.validar {
+            background: #2ecc71;
+            color: #0b1a2e;
+            border-color: #2ecc71;
+        }
+
+        .btn-pequeno.validar:hover {
+            background: #27ae60;
+            border-color: #27ae60;
+        }
+
+        .btn-criar {
+            background: #f7c948;
+            color: #0b1a2e;
+            border: none;
+            padding: 10px 22px;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: .2s;
+            white-space: nowrap;
+        }
+
+        .btn-criar:hover {
+            transform: scale(1.03);
+            background: #fada5e;
+        }
+
+        .cabecalho-jogo {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid rgba(255, 255, 255, .06);
+        }
+
+        .status-aluno {
+            font-size: 1.1rem;
+            color: #d0dcec;
+        }
+
+        .badge-cargo {
+            background: #f39c12;
+            color: #0b1a2e;
+            padding: 4px 14px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: .8rem;
+            margin-left: 8px;
+            text-transform: uppercase;
+        }
+
+        .badge-turma {
+            background: #3498db;
+            color: #fff;
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: .75rem;
+            margin-left: 8px;
+            font-weight: 600;
+        }
+
+        .placar {
+            font-weight: 700;
+            color: #f0f4fa;
+            font-size: 1.2rem;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .placar span {
+            color: #f7c948;
+        }
+
+        .contador-fase {
+            font-size: .95rem;
+            color: #a0b9d4;
+            background: rgba(255, 255, 255, .06);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, .05);
+        }
+
+        .area-desafio {
+            background: rgba(0, 0, 0, .25);
+            border-radius: 20px;
+            padding: 18px 22px;
+            margin-bottom: 20px;
+        }
+
+        .area-desafio h2 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #f0f4fa;
+            margin-bottom: 8px;
+        }
+
+        .area-desafio p {
+            color: #b8cee4;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .editor-wrapper {
+            margin-bottom: 12px;
+        }
+
+        .editor-wrapper label {
+            color: #a0b9d4;
+            font-weight: 600;
+            font-size: .9rem;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .CodeMirror {
+            height: 180px;
+            border-radius: 16px;
+            font-size: 15px;
+            border: 1px solid #2c4055;
+            background: #0f1e2b;
+        }
+
+        .btn-enviar {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.15rem;
+            justify-content: center;
+        }
+
+        #status-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #status-fase {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .painel-admin .topo-admin {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .painel-admin .topo-admin .titulo-area {
+            flex: 1 1 auto;
+        }
+
+        .painel-admin .topo-admin .botoes-topo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .painel-admin h2 {
+            color: #f0f4fa;
+            font-size: 1.8rem;
+            margin-bottom: 4px;
+        }
+
+        .area-turmas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 24px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 20px;
+            padding: 18px 20px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            align-items: flex-start;
+        }
+
+        .area-turmas .criar-turma {
+            flex: 0 0 250px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .area-turmas .criar-turma input {
+            background: #0f1e2b;
+            border: 2px solid #2c4055;
+            border-radius: 12px;
+            padding: 10px 16px;
+            color: #e8edf3;
+            font-size: 1rem;
+            outline: none;
+            flex: 1;
+        }
+
+        .area-turmas .criar-turma input:focus {
+            border-color: #f7c948;
+        }
+
+        .lista-turmas-admin {
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-turma-admin {
+            background: rgba(255, 255, 255, .04);
+            border: 1px solid #2c4055;
+            color: #b0c9e0;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: .9rem;
+            cursor: pointer;
+            transition: .2s;
+            font-weight: 600;
+        }
+
+        .btn-turma-admin:hover,
+        .btn-turma-admin.ativo {
+            background: rgba(247, 201, 72, .15);
+            border-color: #f7c948;
+            color: #f7c948;
+        }
+
+        .detalhes-turma {
+            background: rgba(0, 0, 0, .2);
+            border-radius: 24px;
+            padding: 24px;
+            margin-top: 10px;
+        }
+
+        .detalhes-turma h3 {
+            color: #f0f4fa;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .area-cadastro-aluno {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .area-cadastro-aluno input {
+            background: #0f1e2b;
+            border: 2px solid #2c4055;
+            border-radius: 12px;
+            padding: 8px 14px;
+            color: #e8edf3;
+            font-size: 1rem;
+            outline: none;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .area-cadastro-aluno input:focus {
+            border-color: #f7c948;
+        }
+
+        .lista-alunos-admin {
+            background: rgba(0, 0, 0, .15);
+            border-radius: 18px;
+            padding: 6px;
+            max-height: 280px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .lista-alunos-admin::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .lista-alunos-admin::-webkit-scrollbar-thumb {
+            background: #f7c948;
+            border-radius: 10px;
+        }
+
+        .aluno-item-admin {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 18px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: .2s;
+            color: #d0dcec;
+            border-bottom: 1px solid rgba(255, 255, 255, .03);
+        }
+
+        .aluno-item-admin:hover {
+            background: rgba(247, 201, 72, .08);
+        }
+
+        .aluno-item-admin.selecionado {
+            background: rgba(247, 201, 72, .15);
+            border-left: 4px solid #f7c948;
+        }
+
+        .aluno-item-admin .nome {
+            font-weight: 600;
+            font-size: 1.05rem;
+        }
+
+        .aluno-item-admin .acoes {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .detalhes-aluno {
+            background: rgba(0, 0, 0, .15);
+            border-radius: 18px;
+            padding: 16px 18px;
+            margin-top: 10px;
+        }
+
+        .card-controles {
+            background: rgba(255, 255, 255, .04);
+            border-radius: 18px;
+            padding: 20px 22px;
+            margin-bottom: 24px;
+            border: 1px solid rgba(255, 255, 255, .06);
+        }
+
+        .card-controles .campo {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px 20px;
+            margin-bottom: 14px;
+        }
+
+        .card-controles label {
+            color: #b8cee4;
+            font-weight: 600;
+            min-width: 110px;
+        }
+
+        .card-controles input,
+        .card-controles select {
+            background: #0f1e2b;
+            border: 2px solid #2c4055;
+            border-radius: 12px;
+            padding: 10px 16px;
+            color: #e8edf3;
+            flex: 1;
+            min-width: 140px;
+            outline: none;
+        }
+
+        .card-controles input:focus,
+        .card-controles select:focus {
+            border-color: #f7c948;
+            box-shadow: 0 0 0 3px rgba(247, 201, 72, .15);
+        }
+
+        .botoes-acao {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .lista-fases-container h4 {
+            color: #b8cee4;
+            font-weight: 600;
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .lista-fases {
+            max-height: 200px;
+            overflow-y: auto;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, .1);
+            padding: 4px 6px;
+        }
+
+        .fase-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, .04);
+            border-radius: 10px;
+            transition: .15s;
+        }
+
+        .fase-item:hover {
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .fase-item .status {
+            color: #d0dcec;
+            font-size: .95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fase-item .acoes {
+            display: flex;
+            gap: 6px;
+        }
+
+        .mensagem-admin {
+            color: #a0b9d4;
+            font-style: italic;
+            margin-top: 12px;
+        }
+
+        /* MODAL DE CONQUISTA */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .7);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn .3s ease;
+        }
+
+        .modal-overlay.aberto {
+            display: flex;
+        }
+
+        .modal-conquista {
+            background: #1a2a3a;
+            border-radius: 40px;
+            padding: 40px 50px;
+            max-width: 460px;
+            width: 90%;
+            text-align: center;
+            border: 2px solid #f7c948;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .8);
+            animation: bounceIn .5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-conquista .emoji-grande {
+            font-size: 4.5rem;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .modal-conquista h2 {
+            color: #f7c948;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .modal-conquista p {
+            color: #b8cee4;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-conquista .badge-cargo-modal {
+            background: #f39c12;
+            color: #0b1a2e;
+            padding: 8px 24px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.4rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .modal-conquista .btn-continuar {
+            background: #f7c948;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: .2s;
+            color: #0b1a2e;
+        }
+
+        .modal-conquista .btn-continuar:hover {
+            background: #fada5e;
+            transform: scale(1.05);
+        }
+
+        @media(max-width:640px) {
+            .container {
+                padding: 20px 14px;
+            }
+
+            .tela-login h1 {
+                font-size: 1.8rem;
+            }
+
+            .cabecalho-jogo {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .area-turmas {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .topo-admin {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .topo-admin .botoes-topo {
+                justify-content: flex-start;
+            }
+
+            .detalhes-turma h3 {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .area-cadastro-aluno {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .modal-conquista {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <!-- TELA DE LOGIN -->
+        <div class="tela tela-login ativa" id="tela-login">
+            <div class="logo-python">🐍</div>
+            <h1>Jornada do Mestre Python</h1>
+            <p>Selecione a sua turma e insira o seu nome para aceder ao progresso</p>
+            <div class="caixa-inputs">
+                <input type="text" id="nome-aluno" class="input-nome" placeholder="Seu nome (ex: João)" />
+                <select id="select-turma-aluno" class="input-nome">
+                    <option value="">A carregar turmas...</option>
+                </select>
+                <button class="btn" onclick="entrarComNomeTurma()" id="btn-login-principal">▶ Entrar</button>
+                <hr style="width:80%;max-width:420px;border:none;border-top:2px solid #2c4055;margin:10px auto;" />
+                <button class="btn btn-secundario" onclick="mostrarPainelAdmin()">👨‍🏫 Professor</button>
+            </div>
+        </div>
+
+        <!-- TELA DO JOGO -->
+        <div class="tela" id="tela-jogo">
+            <div class="cabecalho-jogo">
+                <div>
+                    <div class="status-aluno">👤 <span id="nome-exibicao"
+                            style="font-weight:700;color:#f0f4fa;">Aluno</span> <span class="badge-cargo"
+                            id="cargo-aluno">Estagiário</span> <span class="badge-turma"
+                            id="turma-exibicao">Turma</span> <span id="badge-visualizacao"
+                            style="display:none;background:#3498db;color:#fff;padding:2px 12px;border-radius:40px;font-size:.75rem;margin-left:8px;font-weight:600;">👁️
+                            VISUALIZAÇÃO</span></div>
+                    <span class="placar">🏆 <span id="pontos">0</span> XP</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+                    <span class="contador-fase" id="contador-fase">Fase 1 de ?</span>
+                    <button class="btn btn-sair" id="botao-sair" onclick="sairDoJogo()">✕ Sair</button>
+                </div>
+            </div>
+            <div class="area-desafio" id="area-desafio">
+                <h2 id="titulo-desafio">A carregar...</h2>
+                <p id="descricao-desafio">Aguarde.</p>
+            </div>
+            <div class="editor-wrapper editor-unico" id="wrapper-unico">
+                <label>📝 Código</label>
+                <textarea id="editor-codigo"></textarea>
+            </div>
+            <div class="editor-wrapper editor-duplo" id="wrapper-duplo" style="display:none;">
+                <label>📦 Módulo (célula 1)</label>
+                <textarea id="editor-modulo"></textarea>
+                <label style="margin-top:10px;">🚀 Programa principal (célula 2)</label>
+                <textarea id="editor-principal"></textarea>
+            </div>
+            <button class="btn btn-enviar" onclick="verificarCodigo()" id="btn-enviar">⚡ Executar código</button>
+            <div id="status-container">
+                <span id="status-fase" style="color:#f39c12;">⏳ A aguardar...</span>
+            </div>
+        </div>
+
+        <!-- TELA DE VITÓRIA -->
+        <div class="tela" id="tela-vitoria">
+            <div class="logo-python" style="font-size:5rem; text-align:center; width:100%;">🏆</div>
+            <h1 style="color:#f7c948; text-align:center;">Parabéns, Mestre Python!</h1>
+            <p style="text-align:center; color:#a0b9d4;">Completou todos os desafios liberados.</p>
+            <div style="text-align:center;">
+                <button class="btn btn-secundario" style="margin-top:10px;" onclick="sairDoJogo()">↩ Voltar ao
+                    Início</button>
+            </div>
+        </div>
+
+        <!-- PAINEL ADMIN -->
+        <div class="tela painel-admin" id="tela-admin">
+            <div class="topo-admin">
+                <div class="titulo-area">
+                    <h2>👨‍🏫 Painel do Professor</h2>
+                    <div style="color:#a0b9d4;">Gerencie as turmas sincronizadas com a nuvem</div>
+                </div>
+                <div class="botoes-topo">
+                    <button class="btn btn-secundario" onclick="fecharPainelAdmin()">↩ Sair</button>
+                </div>
+            </div>
+            <div class="area-turmas">
+                <div class="criar-turma">
+                    <input type="text" id="input-nova-turma" placeholder="Nome da nova turma" />
+                    <button class="btn-criar" onclick="criarTurma()">➕ Criar</button>
+                </div>
+                <div class="lista-turmas-admin" id="lista-turmas-admin"></div>
+            </div>
+            <div class="detalhes-turma" id="detalhes-turma" style="display:none;">
+                <h3>
+                    <span id="turma-selecionada-nome">📚 Turma</span>
+                </h3>
+                <div class="area-cadastro-aluno">
+                    <input type="text" id="input-novo-aluno" placeholder="Nome do aluno para cadastrar" />
+                    <button class="btn-criar" onclick="cadastrarAluno()">➕ Adicionar Aluno</button>
+                    <span style="color:#6a7f94;font-size:.85rem;">(Obriga a turma a surgir na planilha e no
+                        login)</span>
+                </div>
+                <div class="lista-alunos-admin" id="lista-alunos-turma">
+                    <div style="padding:16px;color:#6a7f94;text-align:center;">Nenhum aluno cadastrado.</div>
+                </div>
+                <div class="detalhes-aluno" id="detalhes-aluno-admin" style="display:none;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+                        <h4 id="detalhe-nome-admin" style="color:#f0f4fa;font-size:1.2rem;margin:0;">👤 Aluno</h4>
+                    </div>
+                    <div class="card-controles">
+                        <div class="campo">
+                            <label>🏆 XP</label>
+                            <input type="number" id="input-xp-admin" value="0" min="0" step="100" />
+                        </div>
+                        <div class="campo">
+                            <label>📌 Fase atual</label>
+                            <select id="select-fase-admin"></select>
+                        </div>
+                        <div class="campo">
+                            <label>🔒 Limite</label>
+                            <select id="select-limite-admin"></select>
+                            <span style="color:#6a7f94;font-size:.85rem;margin-left:6px;">(Até onde o aluno
+                                avança)</span>
+                        </div>
+                        <div class="botoes-acao">
+                            <button class="btn" style="padding:10px 20px;font-size:.95rem;"
+                                onclick="aplicarAlteracoesAdmin()">💾 Atualizar Aluno na Nuvem</button>
+                            <button class="btn btn-perigo" style="padding:10px 20px;font-size:.95rem;"
+                                onclick="removerPontosAdmin()">➖ Remover 100 XP</button>
+                            <button class="btn"
+                                style="background:#6a7f94;box-shadow:none;color:#fff;padding:10px 20px;font-size:.95rem;"
+                                onclick="removerAlunoAdmin()">🗑 Remover aluno</button>
+                        </div>
+                    </div>
+                    <div id="mensagem-admin" class="mensagem-admin"></div>
+                    <div class="lista-fases-container">
+                        <h4>📋 Fases do aluno (Auditoria de Código)</h4>
+                        <div class="lista-fases" id="lista-fases-aluno-admin"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DE CONQUISTA -->
+    <div class="modal-overlay" id="modal-conquista">
+        <div class="modal-conquista">
+            <span class="emoji-grande">🎉</span>
+            <h2>Novo Cargo Alcançado!</h2>
+            <div class="badge-cargo-modal" id="modal-cargo-nome">Estagiário</div>
+            <p>Continue assim, mestre! Você está evoluindo na sua jornada Python.</p>
+            <button class="btn-continuar" onclick="fecharModalConquista()">Continuar</button>
+        </div>
+    </div>
+
+    <pre id="output-oculto" style="display:none;"></pre>
+
+    <script>
+        // ============================================================
+        // 1. CONFIGURAÇÃO DO SUPABASE (NOVAS CREDENCIAIS)
+        // ============================================================
+        const SUPABASE_URL = 'https://ajomfmqlnqydgauboeme.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_YT8IVuY-9KHHcABNfmuYRQ_5NXbGz2O';
+        console.log("🔑 Inicializando Supabase com URL:", SUPABASE_URL);
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        // ============================================================
+        // 2. LISTA DOS 120 DESAFIOS (COMPLETA)
+        //    (coloque aqui todos os 120 desafios que você tem)
+        //    Por enquanto, coloquei 5 exemplos – você deve substituir.
+        // ============================================================
+        const LISTA_DESAFIOS = [
+            // ---- COLE AQUI OS 120 DESAFIOS ----
+            // Exemplo (substitua por todos):
+            { "titulo": "Fase 1: O Sistema da Loja", "descricao": "<b>🏢 Contexto:</b> Uma loja de eletrônicos...", "codigoInicial": "cliente = 'Roberto'\n# ...", "gabarito": "Olá, Roberto! Bem-vindo ao autoatendimento.", "modulos": false },
+            { "titulo": "Fase 2: Fechamento de Caixa", "descricao": "<b>🏢 Contexto:</b> Uma padaria...", "codigoInicial": "faturamento = 1200.50\ncustos = 850.00\n# ...", "gabarito": "O lucro do dia foi de R$ 350.5", "modulos": false },
+            { "titulo": "Fase 3: Automação na Clínica", "descricao": "<b>🏢 Contexto:</b> Uma clínica de nutrição...", "codigoInicial": "peso = 75\naltura = 1.69\n# ...", "gabarito": "26.12", "modulos": false },
+            { "titulo": "Fase 4: Caixa Eletrônico", "descricao": "Uma compra de R$ 87,00 foi paga com R$ 100,00...", "codigoInicial": "compra = 87\npagamento = 100\n# ...", "gabarito": "10:1 5:0 2:1 1:1", "modulos": false },
+            { "titulo": "Fase 5: Padronização de Cadastros", "descricao": "<b>🏢 Contexto:</b> O banco de dados...", "codigoInicial": "nome_cliente = 'mArIa dA sIlVa'\n# ...", "gabarito": "Maria Da Silva", "modulos": false }
+            // ... insira os outros 115 desafios aqui
+        ];
+
+        // ============================================================
+        // 3. VARIÁVEIS GLOBAIS
+        // ============================================================
+        let listaDesafios = LISTA_DESAFIOS;
+        let turmaAtual = null, alunoAtual = null;
+        let progresso = [], indiceFaseAtual = 0, modoVisualizacao = false;
+        let adminTurmaSelecionada = null, adminAlunoSelecionado = null;
+        let pontuacaoTotal = 0, cargoAtual = "", professorLogado = false;
+        let ultimoLimite = null;
+        let cargoAnterior = "Estagiário";
+
+        const tabelaCargos = [
+            { xp: 0, nome: "Estagiário", cor: "#7f8c8d" },
+            { xp: 1000, nome: "Dev Júnior", cor: "#27ae60" },
+            { xp: 3000, nome: "Dev Pleno", cor: "#2980b9" },
+            { xp: 6000, nome: "Dev Sênior", cor: "#f39c12" },
+            { xp: 9000, nome: "Tech Lead", cor: "#8e44ad" },
+            { xp: 12000, nome: "Mestre Python", cor: "#e74c3c" }
+        ];
+
+        const configCM = { mode: "python", theme: "dracula", lineNumbers: true, indentUnit: 4, tabSize: 4 };
+        const editorUnico = CodeMirror.fromTextArea(document.getElementById("editor-codigo"), configCM);
+        const editorModulo = CodeMirror.fromTextArea(document.getElementById("editor-modulo"), configCM);
+        const editorPrincipal = CodeMirror.fromTextArea(document.getElementById("editor-principal"), configCM);
+
+        // ============================================================
+        // 4. FUNÇÕES AUXILIARES
+        // ============================================================
+        function mostrarTela(id) {
+            document.querySelectorAll('.tela').forEach(e => e.classList.remove('ativa'));
+            document.getElementById(id).classList.add('ativa');
+        }
+
+        function obterCargo(xp) {
+            let c = tabelaCargos[0];
+            for (const item of tabelaCargos) { if (xp >= item.xp) c = item; }
+            return c;
+        }
+
+        function atualizarStatus() {
+            document.getElementById("pontos").textContent = pontuacaoTotal;
+            const cargo = obterCargo(pontuacaoTotal);
+            const el = document.getElementById("cargo-aluno");
+            const novoNome = cargo.nome;
+            if (novoNome !== cargoAnterior && cargoAnterior !== "") {
+                mostrarModalConquista(novoNome);
+            }
+            cargoAnterior = novoNome;
+            el.textContent = cargo.nome;
+            el.style.background = cargo.cor;
+            cargoAtual = cargo.nome;
+        }
+
+        // ============================================================
+        // 5. MODAL DE CONQUISTA
+        // ============================================================
+        function mostrarModalConquista(nomeCargo) {
+            document.getElementById("modal-cargo-nome").textContent = nomeCargo;
+            document.getElementById("modal-conquista").classList.add("aberto");
+        }
+        function fecharModalConquista() {
+            document.getElementById("modal-conquista").classList.remove("aberto");
+        }
+        document.getElementById("modal-conquista").addEventListener("click", function (e) {
+            if (e.target === this) fecharModalConquista();
+        });
+
+        // ============================================================
+        // 6. FUNÇÕES DE BANCO (USAM supabaseClient)
+        // ============================================================
+        async function verificarTabelaTurmas() {
+            try {
+                const { error } = await supabaseClient.from('turmas').select('*', { count: 'exact', head: true });
+                if (error && error.message.includes('relation "turmas" does not exist')) {
+                    return false;
+                }
+                return true;
+            } catch (e) {
+                console.error("Erro ao verificar tabela turmas:", e);
+                return false;
+            }
+        }
+
+        async function carregarTurmasCloud() {
+            console.log("📡 Buscando turmas no Supabase...");
+            try {
+                const tabelaExiste = await verificarTabelaTurmas();
+                if (!tabelaExiste) {
+                    console.warn("⚠️ Tabela 'turmas' não encontrada.");
+                    return [];
+                }
+                const { data, error } = await supabaseClient
+                    .from('turmas')
+                    .select('nome')
+                    .order('nome');
+                if (error) {
+                    console.error("❌ Erro ao buscar turmas:", error);
+                    return [];
+                }
+                const turmas = data.map(item => item.nome);
+                console.log("✅ Turmas carregadas:", turmas);
+                return turmas;
+            } catch (e) {
+                console.error("❌ Exceção ao buscar turmas:", e);
+                return [];
+            }
+        }
+
+        async function criarTurmaCloud(nome) {
+            console.log(`📤 Criando turma ${nome}...`);
+            try {
+                const { error } = await supabaseClient
+                    .from('turmas')
+                    .insert({ nome: nome });
+                if (error) {
+                    console.error("❌ Erro ao criar turma:", error);
+                    throw error;
+                }
+                console.log("✅ Turma criada.");
+            } catch (e) {
+                console.error("❌ Exceção ao criar turma:", e);
+                throw e;
+            }
+        }
+
+        async function deletarTurmaCloud(turma) {
+            console.log(`🗑 Deletando turma ${turma}...`);
+            try {
+                const { error } = await supabaseClient
+                    .from('turmas')
+                    .delete()
+                    .eq('nome', turma);
+                if (error) {
+                    console.error("❌ Erro ao deletar turma:", error);
+                    throw error;
+                }
+                console.log("✅ Turma deletada.");
+            } catch (e) {
+                console.error("❌ Exceção ao deletar turma:", e);
+                throw e;
+            }
+        }
+
+        async function carregarAlunoCloud(nome, turma) {
+            console.log(`📡 Buscando aluno ${nome} da turma ${turma}...`);
+            try {
+                const { data, error } = await supabaseClient
+                    .from('alunos')
+                    .select('*')
+                    .eq('nome', nome)
+                    .eq('turma', turma)
+                    .maybeSingle();
+                if (error) {
+                    console.error("❌ Erro ao buscar aluno:", error);
+                    throw error;
+                }
+                console.log("✅ Aluno encontrado:", data);
+                return data;
+            } catch (e) {
+                console.error("❌ Exceção ao buscar aluno:", e);
+                return null;
+            }
+        }
+
+        async function salvarAlunoCloud(dados) {
+            console.log("📤 Salvando aluno no Supabase:", dados);
+            try {
+                const payload = {
+                    nome: dados.nomeExibicao,
+                    turma: dados.turma,
+                    xp: dados.pontuacao || 0,
+                    fase_maxima_liberada: dados.faseMaximaLiberada || null,
+                    progresso: dados.progresso || []
+                };
+                console.log("📤 Payload:", payload);
+                const { data, error } = await supabaseClient
+                    .from('alunos')
+                    .upsert(payload, { onConflict: 'nome, turma' });
+                if (error) {
+                    console.error("❌ Erro ao salvar aluno:", error);
+                    throw error;
+                }
+                console.log("✅ Aluno salvo com sucesso:", data);
+                return data;
+            } catch (e) {
+                console.error("❌ Exceção ao salvar aluno:", e);
+                alert("Erro ao salvar na nuvem: " + e.message);
+                throw e;
+            }
+        }
+
+        async function listarAlunosCloud(turma) {
+            console.log(`📡 Listando alunos da turma ${turma}...`);
+            try {
+                const { data, error } = await supabaseClient
+                    .from('alunos')
+                    .select('*')
+                    .eq('turma', turma)
+                    .order('nome');
+                if (error) {
+                    console.error("❌ Erro ao listar alunos:", error);
+                    throw error;
+                }
+                console.log(`✅ ${data.length} alunos encontrados.`);
+                return data;
+            } catch (e) {
+                console.error("❌ Exceção ao listar alunos:", e);
+                return [];
+            }
+        }
+
+        async function deletarAlunoCloud(nome, turma) {
+            console.log(`🗑 Deletando aluno ${nome} da turma ${turma}...`);
+            try {
+                const { error } = await supabaseClient
+                    .from('alunos')
+                    .delete()
+                    .eq('nome', nome)
+                    .eq('turma', turma);
+                if (error) {
+                    console.error("❌ Erro ao deletar aluno:", error);
+                    throw error;
+                }
+                console.log("✅ Aluno deletado.");
+            } catch (e) {
+                console.error("❌ Exceção ao deletar aluno:", e);
+                throw e;
+            }
+        }
+
+        async function atualizarLimiteTurmaCloud(turma, limite) {
+            console.log(`📤 Atualizando limite da turma ${turma} para ${limite}...`);
+            try {
+                const { error } = await supabaseClient
+                    .from('alunos')
+                    .update({ fase_maxima_liberada: limite })
+                    .eq('turma', turma);
+                if (error) {
+                    console.error("❌ Erro ao atualizar limite:", error);
+                    throw error;
+                }
+                console.log("✅ Limite atualizado.");
+            } catch (e) {
+                console.error("❌ Exceção ao atualizar limite:", e);
+                throw e;
+            }
+        }
+
+        // ============================================================
+        // 7. CARREGAR TURMAS NO LOGIN
+        // ============================================================
+        async function carregarTurmasParaLogin() {
+            const select = document.getElementById("select-turma-aluno");
+            try {
+                const turmas = await carregarTurmasCloud();
+                select.innerHTML = '';
+                if (turmas && turmas.length > 0) {
+                    select.innerHTML = '<option value="">Selecione a sua Turma</option>';
+                    turmas.forEach(t => {
+                        let opt = document.createElement("option");
+                        opt.value = t;
+                        opt.textContent = t;
+                        select.appendChild(opt);
+                    });
+                } else {
+                    select.innerHTML = '<option value="">Nenhuma turma cadastrada</option>';
+                }
+            } catch (e) {
+                console.error("Erro ao carregar turmas:", e);
+                select.innerHTML = '<option value="">Erro ao carregar turmas</option>';
+            }
+        }
+
+        // ============================================================
+        // 8. LOGIN DO ALUNO
+        // ============================================================
+        async function entrarComNomeTurma() {
+            const nome = document.getElementById("nome-aluno").value.trim().toUpperCase();
+            const turmaInput = document.getElementById("select-turma-aluno").value.toUpperCase();
+
+            if (!nome) { alert("Por favor, digite o seu nome."); return; }
+            if (!turmaInput) { alert("Por favor, selecione a sua turma."); return; }
+
+            if (listaDesafios.length === 0) {
+                alert("Nenhum desafio disponível. Verifique a lista embutida.");
+                return;
+            }
+
+            const btnEntrar = document.getElementById("btn-login-principal");
+            const textoOriginal = btnEntrar.innerHTML;
+            btnEntrar.innerHTML = "⏳ A conectar à Nuvem...";
+            btnEntrar.disabled = true;
+
+            try {
+                const turmasExistem = await verificarTabelaTurmas();
+                if (!turmasExistem) {
+                    alert("⚠️ A tabela 'turmas' não existe. Execute o SQL de criação.");
+                    btnEntrar.innerHTML = textoOriginal;
+                    btnEntrar.disabled = false;
+                    return;
+                }
+
+                const turmas = await carregarTurmasCloud();
+                if (!turmas.includes(turmaInput)) {
+                    await criarTurmaCloud(turmaInput);
+                }
+
+                let dadosServer = await carregarAlunoCloud(nome, turmaInput);
+
+                if (!dadosServer) {
+                    console.log("🆕 Aluno não encontrado. Criando novo...");
+                    dadosServer = {
+                        nome: nome,
+                        turma: turmaInput,
+                        xp: 0,
+                        progresso: listaDesafios.map(() => ({ xp: false, validado: false, codigo: "" })),
+                        fase_maxima_liberada: null
+                    };
+                    await salvarAlunoCloud({
+                        nomeExibicao: nome,
+                        turma: turmaInput,
+                        pontuacao: 0,
+                        progresso: dadosServer.progresso,
+                        faseMaximaLiberada: null
+                    });
+                }
+
+                entrarNaTurma(turmaInput, nome, false, dadosServer);
+            } catch (e) {
+                alert("Erro ao conectar à nuvem. Verifique o console (F12).");
+                console.error(e);
+            } finally {
+                btnEntrar.innerHTML = textoOriginal;
+                btnEntrar.disabled = false;
+            }
+        }
+
+        // ============================================================
+        // 9. FUNÇÕES DO JOGO
+        // ============================================================
+        function entrarNaTurma(turma, nome, vis, dadosAluno) {
+            turmaAtual = turma;
+            alunoAtual = nome;
+            modoVisualizacao = vis;
+
+            const btnSair = document.getElementById("botao-sair");
+            if (vis) {
+                btnSair.textContent = "↩ Voltar ao Painel";
+                document.getElementById("badge-visualizacao").style.display = "inline-block";
+            } else {
+                btnSair.textContent = "✕ Sair";
+                document.getElementById("badge-visualizacao").style.display = "none";
+            }
+
+            if (dadosAluno) {
+                pontuacaoTotal = dadosAluno.xp || 0;
+                const progSalvo = dadosAluno.progresso || [];
+                progresso = listaDesafios.map((_, i) => progSalvo[i] || { xp: false, validado: false, codigo: "" });
+                ultimoLimite = dadosAluno.fase_maxima_liberada;
+            } else {
+                pontuacaoTotal = 0;
+                progresso = listaDesafios.map(() => ({ xp: false, validado: false, codigo: "" }));
+                ultimoLimite = null;
+            }
+
+            if (!vis) {
+                indiceFaseAtual = calcularFaseAtual();
+            } else {
+                if (indiceFaseAtual >= listaDesafios.length) indiceFaseAtual = listaDesafios.length - 1;
+            }
+
+            document.getElementById("nome-exibicao").textContent = nome;
+            document.getElementById("turma-exibicao").textContent = turma;
+            const cargoInicial = obterCargo(pontuacaoTotal).nome;
+            cargoAnterior = cargoInicial;
+            atualizarStatus();
+
+            if (indiceFaseAtual >= listaDesafios.length && !vis) {
+                mostrarTela("tela-vitoria");
+                return;
+            }
+            mostrarTela("tela-jogo");
+            carregarFase();
+        }
+
+        function calcularFaseAtual() {
+            if (modoVisualizacao) return indiceFaseAtual;
+            if (listaDesafios.length === 0) return 0;
+            let limite = ultimoLimite;
+            if (limite === undefined || limite === null || limite === -1) {
+                limite = listaDesafios.length - 1;
+            } else {
+                limite = Math.min(limite, listaDesafios.length - 1);
+            }
+            for (let i = 0; i <= limite; i++) {
+                if (!progresso[i] || !progresso[i].xp) return i;
+            }
+            return limite + 1 < listaDesafios.length ? limite + 1 : listaDesafios.length;
+        }
+
+        function carregarFase() {
+            if (listaDesafios.length === 0) {
+                document.getElementById("titulo-desafio").textContent = "Nenhum desafio disponível";
+                document.getElementById("descricao-desafio").textContent = "Verifique a lista embutida.";
+                document.getElementById("btn-enviar").disabled = true;
+                return;
+            }
+
+            if (indiceFaseAtual >= listaDesafios.length && !modoVisualizacao) {
+                mostrarTela("tela-vitoria");
+                return;
+            }
+            if (indiceFaseAtual < 0 || indiceFaseAtual >= listaDesafios.length) {
+                indiceFaseAtual = calcularFaseAtual();
+                if (indiceFaseAtual >= listaDesafios.length) {
+                    if (!modoVisualizacao) {
+                        mostrarTela("tela-vitoria");
+                        return;
+                    } else {
+                        indiceFaseAtual = listaDesafios.length - 1;
+                    }
+                }
+            }
+
+            let limite = ultimoLimite;
+            if (limite === undefined || limite === null || limite === -1) {
+                limite = listaDesafios.length - 1;
+            } else {
+                limite = Math.min(limite, listaDesafios.length - 1);
+            }
+
+            if (indiceFaseAtual > limite && !modoVisualizacao) {
+                alert("Aguarde que o professor libere a próxima fase!");
+                document.getElementById("btn-enviar").disabled = true;
+                return;
+            }
+
+            const fase = listaDesafios[indiceFaseAtual];
+            const p = progresso[indiceFaseAtual] || {};
+
+            document.getElementById("titulo-desafio").textContent = fase.titulo;
+            document.getElementById("descricao-desafio").innerHTML = fase.descricao;
+
+            const totalLib = (limite === -1 || limite === null) ? listaDesafios.length : limite + 1;
+            document.getElementById("contador-fase").textContent = modoVisualizacao ?
+                `A visualizar Fase ${indiceFaseAtual + 1}` :
+                `Fase ${indiceFaseAtual + 1} de ${totalLib}`;
+
+            const statusEl = document.getElementById("status-fase");
+            if (modoVisualizacao) {
+                statusEl.textContent = "👁️ Apenas Leitura";
+                statusEl.style.color = "#3498db";
+            } else if (p.validado) {
+                statusEl.textContent = "✅ Validado!";
+                statusEl.style.color = "#27ae60";
+            } else if (p.xp) {
+                statusEl.textContent = "⏳ A aguardar validação";
+                statusEl.style.color = "#f39c12";
+            } else {
+                statusEl.textContent = "⬜ Não resolvido";
+                statusEl.style.color = "#a0b9d4";
+            }
+
+            let codParaMostrar = "";
+            if (modoVisualizacao) {
+                codParaMostrar = p.codigo || fase.codigoInicial || "";
+            } else {
+                codParaMostrar = p.xp ? p.codigo : (fase.codigoInicial || "");
+            }
+
+            if (fase.modulos) {
+                let codigos = { modulo: fase.codigoModulo || "", principal: fase.codigoPrincipal || "" };
+                if (p.xp || modoVisualizacao) {
+                    try {
+                        if (p.codigo) {
+                            const parsed = JSON.parse(p.codigo);
+                            if (parsed.modulo !== undefined) codigos = parsed;
+                        }
+                    } catch (e) { }
+                }
+                editorModulo.setValue(codigos.modulo);
+                editorPrincipal.setValue(codigos.principal);
+                document.getElementById("wrapper-unico").style.display = "none";
+                document.getElementById("wrapper-duplo").style.display = "block";
+            } else {
+                editorUnico.setValue(codParaMostrar);
+                document.getElementById("wrapper-unico").style.display = "block";
+                document.getElementById("wrapper-duplo").style.display = "none";
+            }
+            setTimeout(() => {
+                editorUnico.refresh();
+                editorModulo.refresh();
+                editorPrincipal.refresh();
+            }, 50);
+            document.getElementById("btn-enviar").disabled = false;
+        }
+
+        // ============================================================
+        // 10. VERIFICAR CÓDIGO
+        // ============================================================
+        function verificarCodigo() {
+            const btn = document.getElementById("btn-enviar");
+            btn.disabled = true;
+            btn.textContent = "⏳ A processar...";
+            document.getElementById("output-oculto").innerHTML = "";
+
+            if (typeof Sk === 'undefined') {
+                alert("❌ Skulpt não carregado.");
+                btn.disabled = false;
+                btn.textContent = "⚡ Executar código";
+                return;
+            }
+
+            if (listaDesafios.length === 0) {
+                alert("Nenhum desafio disponível.");
+                btn.disabled = false;
+                btn.textContent = "⚡ Executar código";
+                return;
+            }
+
+            const fase = listaDesafios[indiceFaseAtual];
+            const cod = fase.modulos ?
+                (editorModulo.getValue() + "\n" + editorPrincipal.getValue()) :
+                editorUnico.getValue();
+
+            Sk.configure({
+                output: (txt) => { document.getElementById("output-oculto").innerHTML += txt; },
+                execLimit: 3000,
+                inputfun: (promptText) => new Promise(res => res(prompt(promptText)))
+            });
+            Sk.misceval.asyncToPromise(() => Sk.importMainWithBody("<stdin>", false, cod, true))
+                .then(() => {
+                    const res = document.getElementById("output-oculto").innerText.trim();
+                    if (res === fase.gabarito.trim()) {
+                        if (!modoVisualizacao) {
+                            if (!progresso[indiceFaseAtual].xp) {
+                                progresso[indiceFaseAtual] = { xp: true, validado: false, codigo: cod };
+                                pontuacaoTotal += 100;
+                                let novoLimite = ultimoLimite;
+                                if (novoLimite === undefined || novoLimite === null || novoLimite === -1) {
+                                    novoLimite = indiceFaseAtual + 1;
+                                } else {
+                                    novoLimite = Math.max(novoLimite, indiceFaseAtual + 1);
+                                }
+                                if (novoLimite > listaDesafios.length - 1) {
+                                    novoLimite = listaDesafios.length - 1;
+                                }
+                                ultimoLimite = novoLimite;
+
+                                const dadosCloud = {
+                                    nomeExibicao: alunoAtual,
+                                    pontuacao: pontuacaoTotal,
+                                    progresso: progresso,
+                                    turma: turmaAtual,
+                                    faseMaximaLiberada: novoLimite
+                                };
+                                salvarAlunoCloud(dadosCloud).then(() => {
+                                    console.log("✅ Progresso salvo na nuvem.");
+                                }).catch(e => console.error("❌ Erro ao salvar:", e));
+
+                                alert("🎉 Correto! +100 XP.");
+                                atualizarStatus();
+                            }
+                            indiceFaseAtual = calcularFaseAtual();
+                            carregarFase();
+                        } else {
+                            alert("✅ O código do aluno está correto!");
+                        }
+                    } else {
+                        alert(`❌ Incorreto.\nGerou:\n"${res}"\n\nEsperado:\n"${fase.gabarito}"`);
+                    }
+                })
+                .catch(e => {
+                    const msg = e.toString().includes("TimeLimitError") ?
+                        "⏳ Erro: Loop Infinito!" :
+                        "⚠️ Erro: " + e.toString();
+                    alert(msg);
+                    console.error(e);
+                })
+                .finally(() => {
+                    btn.disabled = false;
+                    btn.textContent = "⚡ Executar código";
+                    document.getElementById("output-oculto").innerHTML = "";
+                });
+        }
+
+        // ============================================================
+        // 11. SAIR
+        // ============================================================
+        function sairDoJogo() {
+            if (modoVisualizacao) {
+                professorLogado = true;
+                mostrarTela("tela-admin");
+                carregarListaTurmasAdmin();
+                if (adminTurmaSelecionada) selecionarTurmaAdmin(adminTurmaSelecionada);
+                if (adminAlunoSelecionado) selecionarAlunoAdmin(adminAlunoSelecionado);
+                modoVisualizacao = false;
+                turmaAtual = null;
+                alunoAtual = null;
+                document.getElementById("badge-visualizacao").style.display = "none";
+                return;
+            }
+            turmaAtual = null;
+            alunoAtual = null;
+            modoVisualizacao = false;
+            document.getElementById("badge-visualizacao").style.display = "none";
+            document.getElementById("nome-aluno").value = "";
+            mostrarTela("tela-login");
+            carregarTurmasParaLogin();
+        }
+
+        // ============================================================
+        // 12. PAINEL DO PROFESSOR
+        // ============================================================
+        async function mostrarPainelAdmin() {
+            if (!professorLogado) {
+                const senha = prompt("Senha do professor:");
+                if (senha === "Gilvana_Python2026") {
+                    professorLogado = true;
+                } else {
+                    alert("Senha incorreta.");
+                    return;
+                }
+            }
+            if (!adminTurmaSelecionada && turmaAtual) {
+                adminTurmaSelecionada = turmaAtual;
+            }
+            mostrarTela("tela-admin");
+            try {
+                await carregarListaTurmasAdmin();
+                if (adminTurmaSelecionada) await selecionarTurmaAdmin(adminTurmaSelecionada);
+            } catch (error) {
+                console.error("Erro ao carregar dados do Supabase:", error);
+                document.getElementById("detalhes-turma").style.display = "none";
+                alert("⚠️ Não foi possível conectar ao banco de dados.\nVerifique sua conexão e as configurações do Supabase.");
+            }
+        }
+
+        function fecharPainelAdmin() {
+            adminTurmaSelecionada = null;
+            adminAlunoSelecionado = null;
+            document.getElementById("detalhes-turma").style.display = "none";
+            professorLogado = false;
+            if (modoVisualizacao) {
+                modoVisualizacao = false;
+                turmaAtual = null;
+                alunoAtual = null;
+            }
+            mostrarTela("tela-login");
+            carregarTurmasParaLogin();
+        }
+
+        async function criarTurma() {
+            const nome = document.getElementById("input-nova-turma").value.trim().toUpperCase();
+            if (!nome) { alert("Digite o nome da turma."); return; }
+            alert(`A turma "${nome}" será criada quando você adicionar o primeiro aluno.\nClique em "Adicionar Aluno" após selecionar a turma.`);
+            document.getElementById("input-nova-turma").value = "";
+            await carregarListaTurmasAdmin();
+        }
+
+        async function cadastrarAluno() {
+            if (!adminTurmaSelecionada) { alert("Selecione uma turma."); return; }
+            const nome = document.getElementById("input-novo-aluno").value.trim().toUpperCase();
+            if (!nome) { alert("Digite o nome do aluno."); return; }
+            const turma = adminTurmaSelecionada;
+
+            try {
+                const existente = await carregarAlunoCloud(nome, turma);
+                if (existente) { alert(`O aluno ${nome} já existe nesta turma.`); return; }
+            } catch (e) { console.error(e); }
+
+            if (listaDesafios.length === 0) {
+                alert("Nenhum desafio disponível.");
+                return;
+            }
+
+            const novo = {
+                nomeExibicao: nome,
+                turma: turma,
+                pontuacao: 0,
+                progresso: listaDesafios.map(() => ({ xp: false, validado: false, codigo: "" })),
+                faseMaximaLiberada: null
+            };
+
+            try {
+                await salvarAlunoCloud(novo);
+                document.getElementById("input-novo-aluno").value = "";
+                alert(`Aluno ${nome} cadastrado com sucesso!`);
+                await selecionarTurmaAdmin(turma);
+            } catch (e) {
+                alert("Erro ao cadastrar aluno: " + e.message);
+                console.error(e);
+            }
+        }
+
+        async function excluirTurma() {
+            if (!adminTurmaSelecionada) return;
+            if (confirm(`🚨 Deseja mesmo EXCLUIR a turma "${adminTurmaSelecionada}" e APAGAR todos os seus alunos?`)) {
+                try {
+                    await deletarTurmaCloud(adminTurmaSelecionada);
+                    adminTurmaSelecionada = null;
+                    document.getElementById("detalhes-turma").style.display = "none";
+                    await carregarListaTurmasAdmin();
+                    alert("Turma excluída com sucesso.");
+                } catch (e) {
+                    alert("Erro ao excluir turma: " + e.message);
+                    console.error(e);
+                }
+            }
+        }
+
+        async function carregarListaTurmasAdmin() {
+            const container = document.getElementById("lista-turmas-admin");
+            try {
+                const turmas = await carregarTurmasCloud();
+                container.innerHTML = "";
+                if (turmas && turmas.length > 0) {
+                    turmas.forEach(t => {
+                        const btn = document.createElement("button");
+                        btn.className = "btn-turma-admin";
+                        if (t === adminTurmaSelecionada) btn.classList.add("ativo");
+                        btn.textContent = `📚 ${t}`;
+                        btn.onclick = () => selecionarTurmaAdmin(t);
+                        container.appendChild(btn);
+                    });
+                } else {
+                    container.innerHTML = "<div style='color:#a0b9d4;'>Nenhuma turma encontrada. Crie uma nova.</div>";
+                }
+            } catch (e) {
+                console.error("Erro ao sincronizar:", e);
+                container.innerHTML = "<div style='color:#e74c3c;'>Erro ao carregar turmas. Verifique sua conexão e configuração do Supabase.</div>";
+                throw e;
+            }
+        }
+
+        async function selecionarTurmaAdmin(turma) {
+            adminTurmaSelecionada = turma;
+            adminAlunoSelecionado = null;
+            await carregarListaTurmasAdmin();
+            document.getElementById("detalhes-turma").style.display = "block";
+
+            document.getElementById("turma-selecionada-nome").innerHTML = `📚 ${turma} 
+            <div style="display:inline-flex; gap: 8px; margin-left: 15px; flex-wrap:wrap;">
+                <button class="btn-pequeno" style="background:#3498db; color:#fff; border-color:#3498db; font-size:0.9rem; padding: 6px 14px;" onclick="liberarFaseTurmaInteiraCloud()">🚀 Liberar Fase para Toda Turma</button>
+                <button class="btn-pequeno" style="background:#e74c3c; color:#fff; border-color:#e74c3c; font-size:0.9rem; padding: 6px 14px;" onclick="excluirTurma()">🗑 Excluir Turma</button>
+            </div>`;
+
+            try {
+                const alunos = await listarAlunosCloud(turma);
+                const container = document.getElementById("lista-alunos-turma");
+                container.innerHTML = "";
+                if (alunos.length === 0) {
+                    container.innerHTML = "<div style='padding:16px;color:#6a7f94;text-align:center;'>Nenhum aluno cadastrado. Adicione o primeiro aluno acima.</div>";
+                    document.getElementById("detalhes-aluno-admin").style.display = "none";
+                    return;
+                }
+
+                alunos.forEach(aluno => {
+                    const validados = (aluno.progresso || []).filter(p => p.validado).length;
+                    const div = document.createElement("div");
+                    div.className = "aluno-item-admin";
+                    div.dataset.chave = aluno.nome;
+                    div.innerHTML = ` <span class="nome">${aluno.nome}</span> <span class="info">🏆 ${aluno.xp || 0} XP • ${validados}/${listaDesafios.length} valid.</span> <div class="acoes"> <button class="btn-pequeno" onclick="selecionarAlunoAdmin('${aluno.nome}')">Detalhes</button> </div> `;
+                    div.addEventListener("click", () => selecionarAlunoAdmin(aluno.nome));
+                    container.appendChild(div);
+                });
+                document.getElementById("detalhes-aluno-admin").style.display = "none";
+            } catch (e) {
+                console.error("Erro ao listar alunos:", e);
+                alert("Erro ao carregar alunos da turma.");
+            }
+        }
+
+        async function selecionarAlunoAdmin(chave) {
+            if (!adminTurmaSelecionada) return;
+            adminAlunoSelecionado = chave;
+            document.querySelectorAll(".aluno-item-admin").forEach(el => el.classList.toggle("selecionado", el.dataset.chave === chave));
+
+            try {
+                const dados = await carregarAlunoCloud(chave, adminTurmaSelecionada);
+                if (!dados) return;
+
+                document.getElementById("detalhes-aluno-admin").style.display = "block";
+                document.getElementById("detalhe-nome-admin").textContent = `👤 ${dados.nome}`;
+                document.getElementById("input-xp-admin").value = dados.xp || 0;
+                document.getElementById("mensagem-admin").textContent = "";
+
+                const selectFase = document.getElementById("select-fase-admin"),
+                    selectLimite = document.getElementById("select-limite-admin");
+                selectFase.innerHTML = "";
+                selectLimite.innerHTML = "";
+
+                for (let i = 0; i < listaDesafios.length; i++) {
+                    const optFase = document.createElement("option");
+                    optFase.value = i;
+                    optFase.textContent = `Fase ${i + 1}: ${listaDesafios[i].titulo.substring(0, 30)}...`;
+                    if (i === (dados.fase || 0)) optFase.selected = true;
+                    selectFase.appendChild(optFase);
+                    const optLim = document.createElement("option");
+                    optLim.value = i;
+                    optLim.textContent = `Até fase ${i + 1}`;
+                    if (dados.fase_maxima_liberada === i) optLim.selected = true;
+                    selectLimite.appendChild(optLim);
+                }
+                const optTodas = document.createElement("option");
+                optTodas.value = -1;
+                optTodas.textContent = "Todas (sem limite)";
+                if (dados.fase_maxima_liberada === undefined || dados.fase_maxima_liberada === null || dados.fase_maxima_liberada === -1) optTodas.selected = true;
+                selectLimite.appendChild(optTodas);
+
+                const progAluno = dados.progresso || [];
+                const containerFases = document.getElementById("lista-fases-aluno-admin");
+                containerFases.innerHTML = "";
+                for (let i = 0; i < listaDesafios.length; i++) {
+                    const p = progAluno[i] || { xp: false, validado: false };
+                    const div = document.createElement("div");
+                    div.className = "fase-item";
+                    let icone = p.validado ? '✅' : (p.xp ? '⏳' : '❌');
+                    div.innerHTML = `<span class="status"><span class="icone">${icone}</span> Fase ${i + 1}: ${listaDesafios[i].titulo.substring(0, 30)}...</span>`;
+                    const acoes = document.createElement("div");
+                    acoes.className = "acoes";
+                    const btnAbrir = document.createElement("button");
+                    btnAbrir.textContent = "Abrir Código";
+                    btnAbrir.className = "btn-pequeno";
+                    btnAbrir.onclick = () => abrirFaseAlunoAdmin(chave, i);
+                    acoes.appendChild(btnAbrir);
+                    if (p.xp && !p.validado) {
+                        const btnValidar = document.createElement("button");
+                        btnValidar.textContent = "Validar";
+                        btnValidar.className = "btn-pequeno validar";
+                        btnValidar.onclick = () => validarFaseAdmin(chave, i);
+                        acoes.appendChild(btnValidar);
+                    }
+                    div.appendChild(acoes);
+                    containerFases.appendChild(div);
+                }
+            } catch (e) {
+                console.error("Erro ao carregar detalhes do aluno:", e);
+                alert("Erro ao carregar dados do aluno.");
+            }
+        }
+
+        async function liberarFaseTurmaInteiraCloud() {
+            if (!adminTurmaSelecionada) return;
+            const maxFase = listaDesafios.length;
+            if (maxFase === 0) {
+                alert("Nenhum desafio carregado.");
+                return;
+            }
+            const novaFaseStr = prompt(`A turma "${adminTurmaSelecionada}" possui ${maxFase} fases.\nDigite o NÚMERO DA FASE até à qual deseja liberar para TODOS os alunos desta turma (ex: 5):`);
+            if (!novaFaseStr) return;
+            const novaFase = parseInt(novaFaseStr) - 1;
+            if (isNaN(novaFase) || novaFase < 0 || novaFase >= maxFase) {
+                alert("Número de fase inválido. Digite um número de 1 a " + maxFase);
+                return;
+            }
+            if (!confirm(`Confirma a liberação até à FASE ${novaFase + 1} para todos os alunos da turma ${adminTurmaSelecionada}?`)) return;
+            try {
+                await atualizarLimiteTurmaCloud(adminTurmaSelecionada, novaFase);
+                alert(`✅ Sucesso! Fases liberadas para todos os alunos da turma.`);
+                await selecionarTurmaAdmin(adminTurmaSelecionada);
+            } catch (e) {
+                alert("❌ Erro ao atualizar na nuvem: " + e.message);
+                console.error(e);
+            }
+        }
+
+        function abrirFaseAlunoAdmin(chave, faseIndex) {
+            if (!adminTurmaSelecionada) return;
+            indiceFaseAtual = faseIndex;
+            entrarNaTurma(adminTurmaSelecionada, chave, true);
+        }
+
+        async function validarFaseAdmin(chave, faseIndex) {
+            try {
+                const dados = await carregarAlunoCloud(chave, adminTurmaSelecionada);
+                if (!dados) return;
+                if (!dados.progresso) dados.progresso = listaDesafios.map(() => ({ xp: false, validado: false, codigo: "" }));
+                const p = dados.progresso[faseIndex];
+                if (!p || p.validado || !p.xp) return;
+                if (confirm(`Validar a fase ${faseIndex + 1}?`)) {
+                    p.validado = true;
+                    dados.progresso = dados.progresso;
+                    await salvarAlunoCloud({
+                        nomeExibicao: dados.nome,
+                        turma: dados.turma,
+                        pontuacao: dados.xp || 0,
+                        progresso: dados.progresso,
+                        faseMaximaLiberada: dados.fase_maxima_liberada
+                    });
+                    await selecionarAlunoAdmin(chave);
+                    alert("Fase validada com sucesso!");
+                }
+            } catch (e) {
+                alert("Erro ao validar fase: " + e.message);
+                console.error(e);
+            }
+        }
+
+        async function aplicarAlteracoesAdmin() {
+            if (!adminTurmaSelecionada || !adminAlunoSelecionado) return;
+            try {
+                const dados = await carregarAlunoCloud(adminAlunoSelecionado, adminTurmaSelecionada);
+                if (!dados) return;
+                dados.xp = Math.max(0, parseInt(document.getElementById("input-xp-admin").value) || 0);
+                const lim = parseInt(document.getElementById("select-limite-admin").value);
+                dados.fase_maxima_liberada = (lim === -1) ? null : lim;
+                await salvarAlunoCloud({
+                    nomeExibicao: dados.nome,
+                    turma: dados.turma,
+                    pontuacao: dados.xp,
+                    progresso: dados.progresso,
+                    faseMaximaLiberada: dados.fase_maxima_liberada
+                });
+                document.getElementById("mensagem-admin").textContent = "✅ Limites e XP atualizados na Nuvem!";
+                await selecionarAlunoAdmin(adminAlunoSelecionado);
+            } catch (e) {
+                alert("Erro ao atualizar: " + e.message);
+                console.error(e);
+            }
+        }
+
+        async function removerPontosAdmin() {
+            if (!adminTurmaSelecionada || !adminAlunoSelecionado) return;
+            try {
+                const dados = await carregarAlunoCloud(adminAlunoSelecionado, adminTurmaSelecionada);
+                if (!dados) return;
+                dados.xp = Math.max(0, (dados.xp || 0) - 100);
+                await salvarAlunoCloud({
+                    nomeExibicao: dados.nome,
+                    turma: dados.turma,
+                    pontuacao: dados.xp,
+                    progresso: dados.progresso,
+                    faseMaximaLiberada: dados.fase_maxima_liberada
+                });
+                await selecionarAlunoAdmin(adminAlunoSelecionado);
+                alert("100 XP removidos.");
+            } catch (e) {
+                alert("Erro ao remover pontos: " + e.message);
+                console.error(e);
+            }
+        }
+
+        async function removerAlunoAdmin() {
+            if (!adminTurmaSelecionada || !adminAlunoSelecionado) return;
+            if (!confirm(`Remover permanentemente "${adminAlunoSelecionado}" da turma?`)) return;
+            try {
+                await deletarAlunoCloud(adminAlunoSelecionado, adminTurmaSelecionada);
+                adminAlunoSelecionado = null;
+                await selecionarTurmaAdmin(adminTurmaSelecionada);
+                alert("Aluno removido com sucesso.");
+            } catch (e) {
+                alert("Erro ao remover aluno: " + e.message);
+                console.error(e);
+            }
+        }
+
+        // ============================================================
+        // 13. INICIALIZAÇÃO
+        // ============================================================
+        console.log(`✅ ${listaDesafios.length} desafios carregados da lista embutida.`);
+        mostrarTela("tela-login");
+        carregarTurmasParaLogin();
+    </script>
+</body>
+
+</html>
