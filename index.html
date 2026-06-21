@@ -945,14 +945,851 @@
         //    Por enquanto, coloquei 5 exemplos – você deve substituir.
         // ============================================================
         const LISTA_DESAFIOS = [
-            // ---- COLE AQUI OS 120 DESAFIOS ----
-            // Exemplo (substitua por todos):
-            { "titulo": "Fase 1: O Sistema da Loja", "descricao": "<b>🏢 Contexto:</b> Uma loja de eletrônicos...", "codigoInicial": "cliente = 'Roberto'\n# ...", "gabarito": "Olá, Roberto! Bem-vindo ao autoatendimento.", "modulos": false },
-            { "titulo": "Fase 2: Fechamento de Caixa", "descricao": "<b>🏢 Contexto:</b> Uma padaria...", "codigoInicial": "faturamento = 1200.50\ncustos = 850.00\n# ...", "gabarito": "O lucro do dia foi de R$ 350.5", "modulos": false },
-            { "titulo": "Fase 3: Automação na Clínica", "descricao": "<b>🏢 Contexto:</b> Uma clínica de nutrição...", "codigoInicial": "peso = 75\naltura = 1.69\n# ...", "gabarito": "26.12", "modulos": false },
-            { "titulo": "Fase 4: Caixa Eletrônico", "descricao": "Uma compra de R$ 87,00 foi paga com R$ 100,00...", "codigoInicial": "compra = 87\npagamento = 100\n# ...", "gabarito": "10:1 5:0 2:1 1:1", "modulos": false },
-            { "titulo": "Fase 5: Padronização de Cadastros", "descricao": "<b>🏢 Contexto:</b> O banco de dados...", "codigoInicial": "nome_cliente = 'mArIa dA sIlVa'\n# ...", "gabarito": "Maria Da Silva", "modulos": false }
-            // ... insira os outros 115 desafios aqui
+             {
+        "titulo": "Fase 1: O Sistema da Loja",
+        "descricao": "<b>🏢 Contexto:</b> Uma loja de eletrônicos precisa dar boas-vindas aos clientes no novo totem de autoatendimento. O nome do cliente já foi capturado pelo sistema.<br><br><b>🎯 Missão:</b> Use a função <code>print()</code> para exibir a mensagem de boas-vindas unindo o texto padrão ao nome da variável.<br><br><b>🖨️ Saída Esperada:</b><br><code>Olá, Roberto! Bem-vindo ao autoatendimento.</code>",
+        "codigoInicial": "cliente = 'Roberto'\n# Escreva seu print aqui",
+        "gabarito": "Olá, Roberto! Bem-vindo ao autoatendimento.",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 2: Fechamento de Caixa",
+        "descricao": "<b>🏢 Contexto:</b> Uma padaria precisa calcular o lucro líquido diário. O sistema registrou o faturamento total e os custos de produção do dia.<br><br><b>🧮 Fórmula:</b> Lucro = Faturamento - Custos<br><br><b>🎯 Missão:</b> Crie uma variável chamada <code>lucro</code> que receba a subtração dos valores. Em seguida, printe o resultado junto com um texto descritivo.<br><br><b>🖨️ Saída Esperada:</b><br><code>O lucro do dia foi de R$ 350.5</code>",
+        "codigoInicial": "faturamento = 1200.50\ncustos = 850.00\n# Calcule o lucro e printe a mensagem",
+        "gabarito": "O lucro do dia foi de R$ 350.5",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 3: Automação na Clínica",
+        "descricao": "<b>🏢 Contexto:</b> Uma clínica de nutrição atende idosos e precisa que o sistema calcule o Índice de Massa Corporal (IMC) automaticamente a partir dos dados da balança.<br><br><b>🧮 Fórmula:</b> IMC = peso / (altura * altura)<br><br><b>🎯 Missão:</b> Calcule o IMC do paciente. Use a função <code>round(valor, 2)</code> para arredondar o resultado para duas casas decimais e printe apenas o número final.<br><br><b>🖨️ Saída Esperada:</b><br><code>26.26</code>",
+        "codigoInicial": "peso = 75\naltura = 1.69\n# Calcule o IMC, arredonde e printe",
+        "gabarito": "26.26",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 4: Caixa Eletrônico",
+        "descricao": "Uma compra de R$ 87,00 foi paga com R$ 100,00. Calcule o troco e quantas cédulas de 10, 5, 2 e 1 são necessárias (priorize as de maior valor). Exiba no formato exato: <b>10:1 5:0 2:1 1:1</b>",
+        "codigoInicial": "compra = 87\npagamento = 100\n# Calcule o troco e as cédulas",
+        "gabarito": "10:1 5:0 2:1 1:1",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 5: Padronização de Cadastros",
+        "descricao": "<b>🏢 Contexto:</b> O banco de dados de um e-commerce recebeu o nome de um cliente com letras maiúsculas e minúsculas misturadas, o que quebra o layout do site.<br><br><b>🎯 Missão:</b> O nome recebido foi 'mArIa dA sIlVa'. Use o método de string adequado para converter o texto para 'Title Case' (apenas a primeira letra de cada palavra maiúscula) e printe o resultado.<br><br><b>🖨️ Saída Esperada:</b><br><code>Maria Da Silva</code>",
+        "codigoInicial": "nome_cliente = 'mArIa dA sIlVa'\n# Padronize o nome e printe",
+        "gabarito": "Maria Da Silva",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 6: Logística de Estoque (Resto)",
+        "descricao": "<b>🏢 Contexto:</b> Um centro de distribuição precisa embalar 145 smartphones em caixas que comportam exatamente 12 aparelhos cada.<br><br><b>🧮 Regra:</b> O operador logístico precisa saber quantos aparelhos vão sobrar soltos após fechar todas as caixas completas.<br><br><b>🎯 Missão:</b> Use o operador de módulo (<code>%</code>) para encontrar o resto dessa divisão e printe apenas o número.<br><br><b>🖨️ Saída Esperada:</b><br><code>1</code>",
+        "codigoInicial": "smartphones = 145\ncapacidade_caixa = 12\n# Calcule a sobra e printe",
+        "gabarito": "1",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 7: Gerenciamento de Prazos",
+        "descricao": "<b>🏢 Contexto:</b> Um software de gestão de projetos (estilo Jira) recebe o tempo estimado de uma tarefa em dias, mas precisa exibir para o gerente o prazo em semanas completas.<br><br><b>🧮 Regra:</b> Semanas = Dias divididos por 7 (desconsiderando os restos).<br><br><b>🎯 Missão:</b> A tarefa tem 45 dias. Use o operador de divisão inteira (<code>//</code>) para descobrir quantas semanas completas isso representa e printe o resultado.<br><br><b>🖨️ Saída Esperada:</b><br><code>6</code>",
+        "codigoInicial": "dias_estimados = 45\n# Calcule as semanas completas e printe",
+        "gabarito": "6",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 8: Juros Compostos (Potenciação)",
+        "descricao": "<b>🏢 Contexto:</b> Um banco digital quer mostrar ao cliente quanto um investimento inicial de R$ 1.000,00 vai render após 5 anos, com uma taxa fixa de rendimento multiplicadora de 1.10 ao ano.<br><br><b>🧮 Fórmula:</b> Montante = Capital * (Taxa elevada ao Tempo)<br><br><b>🎯 Missão:</b> Use o operador de exponenciação (<code>**</code>) para calcular o montante final. Arredonde para duas casas decimais e printe o valor.<br><br><b>🖨️ Saída Esperada:</b><br><code>1610.51</code>",
+        "codigoInicial": "capital = 1000\ntaxa = 1.10\ntempo_anos = 5\n# Calcule o montante final, arredonde e printe",
+        "gabarito": "1610.51",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 9: Validação de Cupom Promocional",
+        "descricao": "<b>🏢 Contexto:</b> Para evitar erros no checkout, o sistema de vendas exige que todos os cupons promocionais digitados pelo usuário sejam convertidos para letras maiúsculas antes de ir para o banco de dados.<br><br><b>🎯 Missão:</b> O usuário digitou 'blackfriday2026'. Use o método de string que converte tudo para maiúsculo e printe o cupom tratado.<br><br><b>🖨️ Saída Esperada:</b><br><code>BLACKFRIDAY2026</code>",
+        "codigoInicial": "cupom_digitado = 'blackfriday2026'\n# Converta e printe",
+        "gabarito": "BLACKFRIDAY2026",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 10: Higienização de Dados (Replace)",
+        "descricao": "<b>🏢 Contexto:</b> O setor financeiro exportou uma planilha de faturamento, mas o sistema de origem usa vírgula para separar decimais (padrão brasileiro), enquanto o Python exige ponto (padrão americano).<br><br><b>🎯 Missão:</b> O valor extraído foi '1540,50' (uma string). Substitua a vírgula por ponto usando <code>.replace()</code>, converta o resultado para número <code>float()</code> e adicione 100. Printe o resultado final numérico.<br><br><b>🖨️ Saída Esperada:</b><br><code>1640.5</code>",
+        "codigoInicial": "valor_br = '1540,50'\n# Trate a string, converta para float, some 100 e printe",
+        "gabarito": "1640.5",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 11: Auditoria de Senhas",
+        "descricao": "<b>🏢 Contexto:</b> A nova política de segurança da informação (LGPD) exige que nenhuma senha cadastrada no sistema corporativo tenha menos de 8 caracteres.<br><br><b>🎯 Missão:</b> Um funcionário tentou cadastrar a senha 'P@ss'. Descubra o comprimento atual da senha usando <code>len()</code> e printe.<br><br><b>🖨️ Saída Esperada:</b><br><code>4</code>",
+        "codigoInicial": "senha_funcionario = 'P@ss'\n# Descubra o tamanho e printe",
+        "gabarito": "4",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 12: Gerador de Recibos (F-strings)",
+        "descricao": "<b>🏢 Contexto:</b> O caixa eletrônico gera um recibo impresso concatenando os dados do cliente e o valor sacado.<br><br><b>🎯 Missão:</b> As variáveis <code>cliente = 'Carlos'</code> e <code>saque = 250</code> já existem. Use uma f-string para criar e printar EXATAMENTE a seguinte frase:<br><br><b>🖨️ Saída Esperada:</b><br><code>Comprovante: Carlos sacou R$ 250.</code>",
+        "codigoInicial": "cliente = 'Carlos'\nsaque = 250\n# Use f-string para gerar a frase",
+        "gabarito": "Comprovante: Carlos sacou R$ 250.",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 13: Atualização de Variáveis em Memória",
+        "descricao": "<b>🏢 Contexto:</b> Em um jogo online, a pontuação do jogador fica na memória RAM. Quando ele coleta um bônus especial, a pontuação atual deve ser multiplicada por 3, sem criar novas variáveis.<br><br><b>🎯 Missão:</b> A variável <code>score = 150</code>. Use o operador de atribuição composta (<code>*=</code>) para triplicar esse valor nela mesma e printe o <code>score</code> final.<br><br><b>🖨️ Saída Esperada:</b><br><code>450</code>",
+        "codigoInicial": "score = 150\n# Atualize a variável e printe",
+        "gabarito": "450",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 14: Calculadora de Materiais de Construção",
+        "descricao": "<b>🏢 Contexto:</b> Um pedreiro precisa calcular a quantidade de caixas de piso para uma sala. Cada caixa cobre 2 metros quadrados. É regra de segurança comprar 10% a mais para recortes.<br><br><b>🧮 Fórmula:</b> Metragem com sobra = Metragem + 10%. Caixas = Metragem com sobra dividida por 2.<br><br><b>🎯 Missão:</b> A sala tem <code>metragem = 20</code>. Calcule o total de caixas necessárias (use divisão inteira <code>//</code> para não comprar caixa quebrada) e printe o número final.<br><br><b>🖨️ Saída Esperada:</b><br><code>11.0</code>",
+        "codigoInicial": "metragem = 20\n# Lógica de cálculo",
+        "gabarito": "11.0",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 15: Conversão de Temperatura",
+        "descricao": "<b>🏢 Contexto:</b> Um termômetro digital registra a temperatura em graus Celsius, mas o painel de controle exige Fahrenheit.<br><br><b>🧮 Fórmula:</b> Fahrenheit = (Celsius × 9/5) + 32<br><br><b>🎯 Missão:</b> Converta 25°C para Fahrenheit e printe o resultado com duas casas decimais.<br><br><b>🖨️ Saída Esperada:</b><br><code>77.0</code>",
+        "codigoInicial": "celsius = 25\n# Calcule e printe",
+        "gabarito": "77.0",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 16: Regra de Desconto no Frete",
+        "descricao": "<b>🏢 Contexto:</b> Um e-commerce oferece frete grátis apenas para compras cujo valor final seja maior ou igual a R$ 250,00.<br><br><b>🎯 Missão:</b> Crie uma lógica condicional (<code>if/else</code>). Se o valor atingir a meta, printe 'Frete Grátis'. Caso contrário, some uma taxa fixa de R$ 35.00 ao carrinho e printe o novo total da compra.<br><br><b>🖨️ Saída Esperada:</b><br><code>Total a pagar: R$ 245.0</code>",
+        "codigoInicial": "valor_compra = 210.0\n# Crie a estrutura condicional e printe",
+        "gabarito": "Total a pagar: R$ 245.0",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 17: Cálculo da Conta de Luz",
+        "descricao": "<b>🏢 Contexto:</b> A concessionária de energia cobra tarifas diferentes baseadas no consumo residencial. <br><br><b>🧮 Regras de Negócio:</b><br>- Até 100 kWh: R$ 0,50 por kWh.<br>- Acima de 100 kWh até 200 kWh: R$ 0,65 por kWh.<br>- Acima de 200 kWh: R$ 0,80 por kWh.<br><br><b>🎯 Missão:</b> O cliente consumiu 150 kWh. Use <code>if/elif/else</code> para descobrir em qual faixa ele se encaixa, calcule o valor da conta multiplicando o consumo pela tarifa correta, e printe o total.<br><br><b>🖨️ Saída Esperada:</b><br><code>97.5</code>",
+        "codigoInicial": "consumo_kwh = 150\n# Lógica de tarifas",
+        "gabarito": "97.5",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 18: O Primeiro IF - Controle de Acesso",
+        "descricao": "<b>🏢 Contexto:</b> Um sistema de catraca eletrônica bloqueia a entrada de pessoas não autorizadas em um setor restrito.<br><br><b>🧮 Regra:</b> O acesso só é liberado se a credencial tiver o nível 5 ou superior.<br><br><b>🎯 Missão:</b> O crachá lido tem <code>nivel_acesso = 5</code>. Crie uma estrutura <code>if</code> para verificar se o nível é maior ou igual a 5. Se for, printe 'Acesso Concedido'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Acesso Concedido</code>",
+        "codigoInicial": "nivel_acesso = 5\n# Crie o IF",
+        "gabarito": "Acesso Concedido",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 19: O IF/ELSE - Aprovação de Crédito",
+        "descricao": "<b>🏢 Contexto:</b> Um motor de crédito bancário aprova ou nega limites de cartão automaticamente baseando-se no Score do Serasa.<br><br><b>🧮 Regra:</b> Score >= 600 aprova. Menor que 600, nega.<br><br><b>🎯 Missão:</b> O cliente atual tem <code>score = 580</code>. Use <code>if/else</code> para avaliar. Se passar, printe 'Crédito Aprovado'. Senão, printe 'Crédito Negado'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Crédito Negado</code>",
+        "codigoInicial": "score = 580\n# Estrutura IF/ELSE",
+        "gabarito": "Crédito Negado",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 20: Roteamento de Chamados (Par ou Ímpar)",
+        "descricao": "<b>🏢 Contexto:</b> Uma central de suporte divide a carga de trabalho: chamados com ID par vão para a 'Equipe A', e com ID ímpar vão para a 'Equipe B'.<br><br><b>🎯 Missão:</b> O ticket atual é <code>id_chamado = 8847</code>. Use o módulo (<code>% 2</code>) dentro de um <code>if/else</code>. Se o resto for 0, printe 'Equipe A'. Senão, printe 'Equipe B'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Equipe B</code>",
+        "codigoInicial": "id_chamado = 8847\n# Lógica par/ímpar",
+        "gabarito": "Equipe B",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 21: Lógica ELIF - Qualidade da Conexão",
+        "descricao": "<b>🏢 Contexto:</b> Um aplicativo de streaming de vídeo ajusta a qualidade da imagem com base na velocidade da internet do usuário (em Mbps).<br><br><b>🧮 Regra:</b> <br>- Abaixo de 5 Mbps: 'Áudio apenas'<br>- De 5 até 15 Mbps: 'Qualidade SD'<br>- Acima de 15 Mbps: 'Qualidade HD'<br><br><b>🎯 Missão:</b> A <code>velocidade = 12</code>. Use <code>if/elif/else</code> para imprimir a string correta de qualidade.<br><br><b>🖨️ Saída Esperada:</b><br><code>Qualidade SD</code>",
+        "codigoInicial": "velocidade = 12\n# Lógica com ELIF",
+        "gabarito": "Qualidade SD",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 22: Autenticação Segura (AND)",
+        "descricao": "<b>🏢 Contexto:</b> O portal de recursos humanos só permite a visualização de contracheques se o funcionário fornecer o usuário e a senha corretos simultaneamente.<br><br><b>🎯 Missão:</b> As credenciais digitadas foram <code>user = 'admin'</code> e <code>senha = '123'</code>. As corretas no banco de dados são 'admin' e '1234'. Use <code>if</code> com o operador <code>and</code>. Se ambas as variáveis forem exatamente iguais aos valores do banco, printe 'Logado'. Senão, 'Erro de credencial'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Erro de credencial</code>",
+        "codigoInicial": "user = 'admin'\nsenha = '123'\n# Lógica de login com AND",
+        "gabarito": "Erro de credencial",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 23: Permissões Múltiplas (OR)",
+        "descricao": "<b>🏢 Contexto:</b> Em um sistema escolar (EJAI), o aluno pode ser aprovado por média direto se tirar nota 7, ou através de um conselho de classe caso sua nota seja inferior mas sua frequência seja 100%.<br><br><b>🎯 Missão:</b> O aluno tirou <code>nota = 6</code> e tem <code>aprovacao_conselho = True</code>. Se a nota for >= 7 <b>OU</b> (<code>or</code>) a aprovacao_conselho for verdadeira, printe 'Aprovado'. Senão, 'Reprovado'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Aprovado</code>",
+        "codigoInicial": "nota = 6\naprovacao_conselho = True\n# Lógica com OR",
+        "gabarito": "Aprovado",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 24: Operador IN - Sistema do Posto de Saúde",
+        "descricao": "<b>🏢 Contexto:</b> O posto de saúde precisa verificar se o paciente possui algum tipo de prioridade por lei (Idoso, Gestante, PCD) cadastrada na ficha.<br><br><b>🎯 Missão:</b> A variável <code>ficha</code> contém os dados do paciente. Use o operador <code>in</code> para verificar se a palavra 'Idoso' está na ficha. Se estiver, printe 'Fila Preferencial'. Senão, printe 'Fila Comum'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Fila Preferencial</code>",
+        "codigoInicial": "ficha = 'Paciente: Maria, 68 anos, Idoso, Pressão Alta'\n# Verifique a prioridade com IN",
+        "gabarito": "Fila Preferencial",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 25: Desconto na Farmácia (NOT)",
+        "descricao": "<b>🏢 Contexto:</b> Uma farmácia dá desconto em medicamentos genéricos, desde que o produto NÃO esteja em promoção especial (pois os descontos não acumulam).<br><br><b>🎯 Missão:</b> O remédio é genérico (<code>generico = True</code>), mas está em promoção (<code>em_promocao = True</code>). Use <code>if generico and not em_promocao:</code>. Se a condição for atendida, printe 'Desconto Aplicado'. Senão, printe 'Preço Normal'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Preço Normal</code>",
+        "codigoInicial": "generico = True\nem_promocao = True\n# Lógica com NOT",
+        "gabarito": "Preço Normal",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 26: Aninhamento - Biblioteca Comunitária",
+        "descricao": "<b>🏢 Contexto:</b> A biblioteca municipal tem uma regra de empréstimo: a pessoa precisa ter cadastro ativo. Se tiver, verifica-se se ela tem pendências (livros atrasados).<br><br><b>🎯 Missão:</b> <code>cadastro_ativo = True</code> e <code>pendencias = False</code>. Faça um <code>if</code> dentro do outro. Se o cadastro for ativo e a pessoa não tiver pendências (<code>pendencias == False</code>), printe 'Empréstimo Liberado'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Empréstimo Liberado</code>",
+        "codigoInicial": "cadastro_ativo = True\npendencias = False\n# Use IFs aninhados",
+        "gabarito": "Empréstimo Liberado",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 27: Faixa Etária e Voto",
+        "descricao": "<b>🏢 Contexto:</b> No Brasil, o voto tem regras baseadas na idade. É facultativo para quem tem 16, 17 anos ou mais de 70 anos. É obrigatório entre 18 e 70 anos. Abaixo de 16, não vota.<br><br><b>🎯 Missão:</b> O cidadão tem <code>idade = 72</code>. Use <code>if/elif/else</code> para imprimir o status correto: 'Não vota', 'Voto Facultativo' ou 'Voto Obrigatório'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Voto Facultativo</code>",
+        "codigoInicial": "idade = 72\n# Estrutura completa de IFs",
+        "gabarito": "Voto Facultativo",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 28: Classificação de Solo para Plantio",
+        "descricao": "<b>🏢 Contexto:</b> Um agricultor mediu o pH da terra antes do plantio. <br><br><b>🧮 Regra:</b> pH menor que 6 é 'Ácido'. pH entre 6 e 7 é 'Neutro'. pH acima de 7 é 'Alcalino'.<br><br><b>🎯 Missão:</b> O teste deu <code>ph = 5.5</code>. Crie as condições adequadas e printe a classificação do solo.<br><br><b>🖨️ Saída Esperada:</b><br><code>Ácido</code>",
+        "codigoInicial": "ph = 5.5\n# Lógica do pH",
+        "gabarito": "Ácido",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 29: Auditoria de Carga (Maior de Três)",
+        "descricao": "<b>🏢 Contexto:</b> Um caminhão passou por três balanças rodoviárias, que deram pesos ligeiramente diferentes. Para evitar multas, a transportadora usa sempre o maior peso registrado na documentação.<br><br><b>🎯 Missão:</b> As pesagens foram: <code>b1 = 12500</code>, <code>b2 = 12750</code>, <code>b3 = 12600</code>. Escreva a lógica (usando if/elif/else e operadores <code>and</code>) para descobrir qual é o maior valor e imprima-o.<br><br><b>🖨️ Saída Esperada:</b><br><code>12750</code>",
+        "codigoInicial": "b1, b2, b3 = 12500, 12750, 12600\n# Lógica do maior valor",
+        "gabarito": "12750",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 30: Ano Bissexto no Calendário",
+        "descricao": "<b>🏢 Contexto:</b> Um sistema de agendamento de consultas precisa saber se fevereiro tem 29 dias para permitir a marcação.<br><br><b>🧮 Regra:</b> Um ano é bissexto se for divisível por 4 (resto 0), EXCETO se for divisível por 100, a não ser que também seja divisível por 400.<br><br><b>🎯 Missão:</b> O <code>ano = 2024</code>. Crie a regra condicional (dica: <code>ano % 4 == 0</code>) e imprima True se for bissexto ou False se não for.<br><br><b>🖨️ Saída Esperada:</b><br><code>True</code>",
+        "codigoInicial": "ano = 2024\n# Lógica de ano bissexto",
+        "gabarito": "True",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 31: O Primeiro Laço - O Relógio (While)",
+        "descricao": "<b>🏢 Contexto:</b> Na padaria, o forno avisa quantos minutos faltam para o pão ficar pronto.<br><br><b>🧮 Regra:</b> O comando <code>while</code> repete um bloco de código ENQUANTO a condição for verdadeira.<br><br><b>🎯 Missão:</b> O <code>tempo = 3</code>. Faça um <code>while tempo > 0:</code> que imprima o valor de tempo e, logo abaixo, diminua o tempo em 1 (<code>tempo -= 1</code>).<br><br><b>🖨️ Saída Esperada:</b><br><code>3\n2\n1</code>",
+        "codigoInicial": "tempo = 3\n# Crie seu laço while",
+        "gabarito": "3\n2\n1",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 32: A Catraca do Ônibus (Acumulador)",
+        "descricao": "<b>🏢 Contexto:</b> O motorista precisa contar quantos passageiros passaram na roleta até atingir a lotação máxima permitida por lei (5 pessoas nesta van).<br><br><b>🎯 Missão:</b> Crie uma variável <code>passageiros = 0</code>. Enquanto passageiros for menor que 5, adicione 1 à variável. No final (FORA do laço), printe 'Lotação Máxima Atingida'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Lotação Máxima Atingida</code>",
+        "codigoInicial": "passageiros = 0\n# Laço de repetição",
+        "gabarito": "Lotação Máxima Atingida",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 33: Saque de Caixa Eletrônico (While)",
+        "descricao": "<b>🏢 Contexto:</b> O cliente quer sacar R$ 30, mas o caixa só tem notas de R$ 10. Ele precisa 'cuspir' uma nota de cada vez até zerar o saque.<br><br><b>🎯 Missão:</b> <code>saque = 30</code>. Enquanto saque for maior que 0, printe 'Nota de R$ 10 liberada' e diminua 10 da variável saque.<br><br><b>🖨️ Saída Esperada:</b><br><code>Nota de R$ 10 liberada\nNota de R$ 10 liberada\nNota de R$ 10 liberada</code>",
+        "codigoInicial": "saque = 30\n# Lógica do caixa eletrônico",
+        "gabarito": "Nota de R$ 10 liberada\nNota de R$ 10 liberada\nNota de R$ 10 liberada",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 34: O Cofre de Segurança (Break)",
+        "descricao": "<b>🏢 Contexto:</b> Um sistema de alarme repete um som indefinidamente até que seja destravado. O comando <code>break</code> força a parada imediata do laço.<br><br><b>🎯 Missão:</b> Você tem um <code>while True:</code>. Crie uma variável <code>tentativa = 1</code> antes. Dentro do laço, se tentativa for igual a 3, printe 'Destravado' e use o <code>break</code>. Lembre-se de aumentar a tentativa em 1 a cada volta.<br><br><b>🖨️ Saída Esperada:</b><br><code>Destravado</code>",
+        "codigoInicial": "tentativa = 1\nwhile True:\n    # Faça a checagem e incremente",
+        "gabarito": "Destravado",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 35: Filtro de Máquina de Café (Continue)",
+        "descricao": "<b>🏢 Contexto:</b> A máquina de café pinga gotas. Se uma gota vier suja, o filtro bloqueia aquela gota (pula a vez) e continua o trabalho.<br><br><b>🧮 Regra:</b> O comando <code>continue</code> ignora tudo que está abaixo dele e pula direto para a próxima repetição do laço.<br><br><b>🎯 Missão:</b> O <code>contador = 0</code>. Enquanto contador < 4, some 1. Se o contador for igual a 2, use <code>continue</code>. Caso contrário, printe o valor do contador.<br><br><b>🖨️ Saída Esperada:</b><br><code>1\n3\n4</code>",
+        "codigoInicial": "contador = 0\nwhile contador < 4:\n    contador += 1\n    # Use IF e continue, depois o print",
+        "gabarito": "1\n3\n4",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 36: O Laço FOR - Fila do Supermercado",
+        "descricao": "<b>🏢 Contexto:</b> O laço <code>for</code> é excelente para repetições com número conhecido. O sistema do caixa precisa escanear 3 produtos de uma esteira.<br><br><b>🧮 Regra:</b> A função <code>range(1, 4)</code> gera os números 1, 2 e 3 (o último número é ignorado).<br><br><b>🎯 Missão:</b> Use um <code>for item in range(1, 4):</code> e printe uma f-string exata: 'Escaneando produto X' (onde X é a variável item).<br><br><b>🖨️ Saída Esperada:</b><br><code>Escaneando produto 1\nEscaneando produto 2\nEscaneando produto 3</code>",
+        "codigoInicial": "# Crie o laço FOR",
+        "gabarito": "Escaneando produto 1\nEscaneando produto 2\nEscaneando produto 3",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 37: Repetição Simples de Texto",
+        "descricao": "<b>🏢 Contexto:</b> Uma copiadora de bairro precisa imprimir um aviso 5 vezes seguidas na mesma folha de papel.<br><br><b>🎯 Missão:</b> Use um laço <code>for</code> com <code>range(5)</code> (isso gera 5 repetições, começando do zero). Dentro do laço, printe 'Fechamos às 18h'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Fechamos às 18h\nFechamos às 18h\nFechamos às 18h\nFechamos às 18h\nFechamos às 18h</code>",
+        "codigoInicial": "# Crie a repetição de texto",
+        "gabarito": "Fechamos às 18h\nFechamos às 18h\nFechamos às 18h\nFechamos às 18h\nFechamos às 18h",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 38: Somatório do Feirante",
+        "descricao": "<b>🏢 Contexto:</b> Um feirante vendeu produtos durante 4 horas. Ele quer saber o faturamento total acumulado. Em vez de somar manualmente, ele usa um laço para automatizar.<br><br><b>🎯 Missão:</b> Crie <code>total = 0</code>. Faça um <code>for</code> de 1 até 4 (usando <code>range(1, 5)</code>). A cada volta, adicione R$ 50 ao <code>total</code>. Fora do laço, printe o valor final do total.<br><br><b>🖨️ Saída Esperada:</b><br><code>200</code>",
+        "codigoInicial": "total = 0\n# Faça o FOR, acumule e printe fora",
+        "gabarito": "200",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 39: Contagem Regressiva do Ano Novo",
+        "descricao": "<b>🏢 Contexto:</b> O letreiro digital da praça da cidade faz uma contagem regressiva 10 segundos antes do Ano Novo.<br><br><b>🧮 Regra:</b> Você pode usar o <code>range()</code> de trás pra frente: <code>range(3, 0, -1)</code> vai gerar 3, 2 e 1.<br><br><b>🎯 Missão:</b> Faça uma contagem regressiva começando do 3 até o 1. Printe cada número. FORA e DEPOIS do laço, printe 'Feliz Ano Novo!'.<br><br><b>🖨️ Saída Esperada:</b><br><code>3\n2\n1\nFeliz Ano Novo!</code>",
+        "codigoInicial": "# Laço com range reverso",
+        "gabarito": "3\n2\n1\nFeliz Ano Novo!",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 40: Pular Finais de Semana",
+        "descricao": "<b>🏢 Contexto:</b> Um programador gerou os dias da semana (de 1 a 7). Ele precisa printar o status do dia, mas sábado (6) e domingo (7) são dias de folga, então a rotina do escritório deve ser ignorada.<br><br><b>🎯 Missão:</b> Crie um <code>for dia in range(1, 8):</code>. Use um <code>if</code> para checar se o dia é maior que 5. Se for, use o comando <code>break</code> para encerrar as impressões na sexta-feira. Caso contrário, printe 'Trabalhando no dia X'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Trabalhando no dia 1\nTrabalhando no dia 2\nTrabalhando no dia 3\nTrabalhando no dia 4\nTrabalhando no dia 5</code>",
+        "codigoInicial": "# Laço, checagem e break",
+        "gabarito": "Trabalhando no dia 1\nTrabalhando no dia 2\nTrabalhando no dia 3\nTrabalhando no dia 4\nTrabalhando no dia 5",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 41: Laços Aninhados - O Prédio",
+        "descricao": "<b>🏢 Contexto:</b> O carteiro precisa entregar correspondências em todos os apartamentos de um pequeno prédio. O prédio tem 2 andares e 2 apartamentos por andar.<br><br><b>🎯 Missão:</b> Crie um <code>for andar in range(1, 3):</code>. Dentro dele, crie outro <code>for apto in range(1, 3):</code>. Printe uma f-string mostrando 'Andar X - Apto Y'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Andar 1 - Apto 1<br>Andar 1 - Apto 2<br>Andar 2 - Apto 1<br>Andar 2 - Apto 2</code>",
+        "codigoInicial": "# Crie um FOR dentro de outro FOR",
+        "gabarito": "Andar 1 - Apto 1\nAndar 1 - Apto 2\nAndar 2 - Apto 1\nAndar 2 - Apto 2",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 42: O Fatorial de 5",
+        "descricao": "<b>🏢 Contexto:</b> Na análise de dados, um sistema de senhas precisa calcular as permutações possíveis usando o Fatorial (matemática).<br><br><b>🧮 Regra:</b> O Fatorial de 5 (5!) é 5 * 4 * 3 * 2 * 1.<br><br><b>🎯 Missão:</b> Crie <code>fatorial = 1</code>. Faça um <code>for i in range(1, 6):</code>. Multiplique o fatorial por <code>i</code> a cada volta (<code>fatorial *= i</code>). No fim, printe o resultado.<br><br><b>🖨️ Saída Esperada:</b><br><code>120</code>",
+        "codigoInicial": "fatorial = 1\n# Lógica do fatorial",
+        "gabarito": "120",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 43: Contagem de Letras em Strings",
+        "descricao": "<b>🏢 Contexto:</b> Uma editora precisa auditar títulos de livros para encontrar caracteres específicos. Strings também podem ser percorridas com laços <code>for</code>!<br><br><b>🎯 Missão:</b> O título é <code>titulo = 'Python'</code>. Faça um <code>for letra in titulo:</code> e printe letra por letra na tela, uma embaixo da outra.<br><br><b>🖨️ Saída Esperada:</b><br><code>P<br>y<br>t<br>h<br>o<br>n</code>",
+        "codigoInicial": "titulo = 'Python'\n# Percorra a string",
+        "gabarito": "P\ny\nt\nh\no\nn",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 44: Acumulador Condicional",
+        "descricao": "<b>🏢 Contexto:</b> O sistema financeiro tem registros de 1 a 10 dias, mas a loja só opera em dias pares. Precisamos somar apenas o faturamento dos dias pares.<br><br><b>🎯 Missão:</b> Crie <code>soma = 0</code>. Faça um <code>for dia in range(1, 11):</code>. Se o dia for par (<code>dia % 2 == 0</code>), adicione o valor do dia à soma. Printe o total no final.<br><br><b>🖨️ Saída Esperada:</b><br><code>30</code>",
+        "codigoInicial": "soma = 0\n# For, IF par e acumulador",
+        "gabarito": "30",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 45: A Sequência de Fibonacci",
+        "descricao": "<b>🏢 Contexto:</b> Um algoritmo financeiro usa a sequência de Fibonacci para calcular retrações de mercado. Nela, o próximo número é a soma dos dois anteriores.<br><br><b>🎯 Missão:</b> Comece com <code>a = 0</code> e <code>b = 1</code>. Faça um <code>for</code> rodar 5 vezes (<code>range(5)</code>). Printe o valor de <code>a</code> e, em seguida, atualize os valores: <code>a, b = b, a + b</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>0<br>1<br>1<br>2<br>3</code>",
+        "codigoInicial": "a, b = 0, 1\n# Lógica de Fibonacci",
+        "gabarito": "0\n1\n1\n2\n3",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 46: Introdução a Listas",
+        "descricao": "<b>🏢 Contexto:</b> Em Python, colchetes <code>[]</code> criam uma Lista (um armário com várias gavetas). O supermercado digital registrou os produtos do carrinho em uma lista.<br><br><b>🧮 Regra:</b> O primeiro item da lista sempre fica na posição [0].<br><br><b>🎯 Missão:</b> A lista é <code>carrinho = ['Arroz', 'Feijão', 'Carne']</code>. Printe apenas o segundo produto (Lembre-se que a contagem começa do zero!).<br><br><b>🖨️ Saída Esperada:</b><br><code>Feijão</code>",
+        "codigoInicial": "carrinho = ['Arroz', 'Feijão', 'Carne']\n# Printe o segundo item",
+        "gabarito": "Feijão",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 47: Adicionando à Lista (Append)",
+        "descricao": "<b>🏢 Contexto:</b> O cliente apertou o botão 'Comprar' na tela do celular para adicionar 'Leite' no carrinho vazio.<br><br><b>🎯 Missão:</b> Dada a <code>lista = []</code> (vazia), use o método <code>.append('Leite')</code> para adicionar o produto. Em seguida, printe a lista inteira.<br><br><b>🖨️ Saída Esperada:</b><br><code>['Leite']</code>",
+        "codigoInicial": "lista = []\n# Adicione o produto e printe",
+        "gabarito": "['Leite']",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 48: Removendo da Lista (Remove)",
+        "descricao": "<b>🏢 Contexto:</b> A equipe de marketing mudou de ideia e quer retirar o brinde 'Caneta' do kit corporativo.<br><br><b>🎯 Missão:</b> <code>kit = ['Agenda', 'Caneta', 'Copo']</code>. Use o método <code>.remove('Caneta')</code> para deletar o item. Printe a lista resultante.<br><br><b>🖨️ Saída Esperada:</b><br><code>['Agenda', 'Copo']</code>",
+        "codigoInicial": "kit = ['Agenda', 'Caneta', 'Copo']\n# Remova e printe",
+        "gabarito": "['Agenda', 'Copo']",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 49: O Tamanho da Lista (Len)",
+        "descricao": "<b>🏢 Contexto:</b> O RH precisa gerar um relatório mostrando exatamente quantos funcionários participaram da reunião online.<br><br><b>🎯 Missão:</b> <code>presenca = ['Ana', 'Bia', 'Caio', 'Daniel']</code>. Use a função <code>len(presenca)</code> para descobrir o número de participantes e printe a frase: 'Total: X' (use f-string).<br><br><b>🖨️ Saída Esperada:</b><br><code>Total: 4</code>",
+        "codigoInicial": "presenca = ['Ana', 'Bia', 'Caio', 'Daniel']\n# Meça a lista e printe",
+        "gabarito": "Total: 4",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 50: O For em Listas",
+        "descricao": "<b>🏢 Contexto:</b> O sistema precisa enviar um e-mail individual para cada cliente aprovado na lista do banco.<br><br><b>🎯 Missão:</b> <code>aprovados = ['João', 'Maria']</code>. Use <code>for cliente in aprovados:</code> e printe 'Enviando para X' para cada um.<br><br><b>🖨️ Saída Esperada:</b><br><code>Enviando para João<br>Enviando para Maria</code>",
+        "codigoInicial": "aprovados = ['João', 'Maria']\n# Iteração em lista",
+        "gabarito": "Enviando para João\nEnviando para Maria",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 51: O Menor e o Maior Valor",
+        "descricao": "<b>🏢 Contexto:</b> O dashboard do analista de dados precisa exibir qual foi a maior e a menor venda registrada na semana.<br><br><b>🧮 Regra:</b> O Python tem funções nativas chamadas <code>min()</code> e <code>max()</code> para descobrir isso em listas.<br><br><b>🎯 Missão:</b> <code>vendas = [150, 420, 80, 500, 200]</code>. Encontre o mínimo e o máximo, e printe na tela no formato: 'Min: X, Max: Y'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Min: 80, Max: 500</code>",
+        "codigoInicial": "vendas = [150, 420, 80, 500, 200]\n# Extraia e printe",
+        "gabarito": "Min: 80, Max: 500",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 52: Somatório Direto em Lista",
+        "descricao": "<b>🏢 Contexto:</b> O auditor precisa do fechamento geral do caixa do dia em uma única operação.<br><br><b>🧮 Regra:</b> Em vez de usar um laço 'for' para somar, o Python tem a super função <code>sum(lista)</code> que faz tudo na hora.<br><br><b>🎯 Missão:</b> <code>caixa = [50, 20, 10, 100]</code>. Calcule a soma total com <code>sum()</code> e printe o número.<br><br><b>🖨️ Saída Esperada:</b><br><code>180</code>",
+        "codigoInicial": "caixa = [50, 20, 10, 100]\n# Some tudo e printe",
+        "gabarito": "180",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 53: Fatiamento (Slicing)",
+        "descricao": "<b>🏢 Contexto:</b> O ranking geral tem 5 pilotos. A direção da corrida quer ver apenas o Top 3 (os três primeiros).<br><br><b>🧮 Regra:</b> Use fatiamento: <code>lista[0:3]</code> para pegar do índice 0 até o 2 (o 3 é ignorado).<br><br><b>🎯 Missão:</b> <code>pilotos = ['A', 'B', 'C', 'D', 'E']</code>. Crie uma nova lista apenas com o Top 3 e printe essa nova lista.<br><br><b>🖨️ Saída Esperada:</b><br><code>['A', 'B', 'C']</code>",
+        "codigoInicial": "pilotos = ['A', 'B', 'C', 'D', 'E']\n# Fatiamento e print",
+        "gabarito": "['A', 'B', 'C']",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 54: Ordenando a Lista (Sort)",
+        "descricao": "<b>🏢 Contexto:</b> A plataforma de notas escolares do professor precisa ordenar as notas dos alunos em ordem crescente para criar um gráfico.<br><br><b>🎯 Missão:</b> <code>notas = [7.5, 3.2, 9.8, 5.0]</code>. Aplique o método <code>.sort()</code> na lista para ordená-la, e em seguida printe a lista.<br><br><b>🖨️ Saída Esperada:</b><br><code>[3.2, 5.0, 7.5, 9.8]</code>",
+        "codigoInicial": "notas = [7.5, 3.2, 9.8, 5.0]\n# Ordene e printe",
+        "gabarito": "[3.2, 5.0, 7.5, 9.8]",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 55: Imutabilidade com Tuplas",
+        "descricao": "<b>🏢 Contexto:</b> Coordenadas de GPS de um servidor militar nunca devem ser alteradas por acidente. Por isso, usa-se Tuplas <code>()</code>, que são listas imutáveis.<br><br><b>🎯 Missão:</b> <code>gps = (-9.66, -35.73)</code>. Tente mudar o primeiro item da tupla com <code>gps[0] = -10</code> e use um <code>try/except Exception as e:</code> para capturar o erro e printar 'Erro: não é possível alterar tuplas'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Erro: não é possível alterar tuplas</code>",
+        "codigoInicial": "gps = (-9.66, -35.73)\n# Tente alterar e faça o try/except",
+        "gabarito": "Erro: não é possível alterar tuplas",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 56: Condomínio Inteligente (Operador IN)",
+        "descricao": "<b>🏢 Contexto:</b> O sistema de segurança de um condomínio empresarial possui uma lista em memória com as placas de veículos dos diretores autorizados a entrar sem passar pela triagem.<br><br><b>🎯 Missão:</b> Dada a lista de autorizados, utilize o operador <code>in</code> dentro de uma estrutura condicional para verificar se a placa 'ABC-1234' está presente. Se estiver, printe 'Acesso Autorizado'. Caso contrário, 'Aguardar Triagem'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Acesso Autorizado</code>",
+        "codigoInicial": "autorizados = ['XYZ-9999', 'ABC-1234', 'KGB-0007']\nplaca_carro = 'ABC-1234'\n# Verifique a presença com o operador IN e printe",
+        "gabarito": "Acesso Autorizado",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 57: Localizador na Fila de Espera (.index)",
+        "descricao": "<b>🏢 Contexto:</b> Uma agência de viagens organizou uma fila de passageiros por estrito ordem de chegada. O atendente precisa de saber com precisão qual é a posição exata (o índice) de um passageiro na fila para fazer uma chamada no altifalante.<br><br><b>🧮 Regra:</b> O método <code>.index('item')</code> pesquisa e retorna a posição numérica do item numa lista.<br><br><b>🎯 Missão:</b> Encontre e printe o índice do passageiro 'Marcos' na lista fornecida.<br><br><b>🖨️ Saída Esperada:</b><br><code>2</code>",
+        "codigoInicial": "fila = ['Ana', 'Bruno', 'Marcos', 'Diana']\n# Encontre o índice e printe",
+        "gabarito": "2",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 58: Controle de Qualidade (.count)",
+        "descricao": "<b>🏢 Contexto:</b> O controle de qualidade de uma fábrica de tecidos anotou num relatório sequencial os defeitos encontrados num rolo de pano. O gerente precisa de contabilizar o total de ocorrências de um erro específico.<br><br><b>🧮 Regra:</b> O método <code>.count('item')</code> conta quantas vezes um elemento se repete dentro da lista.<br><br><b>🎯 Missão:</b> Conte quantas vezes o defeito 'Mancha' aparece na lista de auditoria e printe o resultado numérico.<br><br><b>🖨️ Saída Esperada:</b><br><code>3</code>",
+        "codigoInicial": "auditoria = ['Furo', 'Mancha', 'Corte', 'Mancha', 'Mancha']\n# Conte as ocorrências e printe",
+        "gabarito": "3",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 59: Histórico de Navegação (.reverse)",
+        "descricao": "<b>🏢 Contexto:</b> Um navegador web armazena os endereços visitados pelo utilizador. Para exibir a página de histórico de forma intuitiva, o sistema precisa de inverter a ordem da lista para mostrar as mais recentes primeiro.<br><br><b>🎯 Missão:</b> Inverta a ordem dos elementos da lista de páginas utilizando o método <code>.reverse()</code> e, em seguida, printe a lista modificada.<br><br><b>🖨️ Saída Esperada:</b><br><code>['Contato', 'Produtos', 'Home']</code>",
+        "codigoInicial": "paginas = ['Home', 'Produtos', 'Contato']\n# Inverta a lista e printe a mesma",
+        "gabarito": "['Contato', 'Produtos', 'Home']",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 60: Backup de Segurança (.copy)",
+        "descricao": "<b>🏢 Contexto:</b> Um script de infraestrutura precisa de duplicar uma lista de ficheiros sensíveis antes de aplicar uma atualização. Se alterarmos uma cópia simples (com o operador =), o Python altera a lista original na memória por referência. Precisamos de uma cópia real e isolada.<br><br><b>🎯 Missão:</b> Faça uma cópia exata de <code>original</code> para uma nova variável chamada <code>backup</code> usando o método <code>.copy()</code>. Para testar o isolamento, adicione o item 'dados.csv' à lista <code>backup</code> e, no final, printe a lista <code>original</code> (que deve permanecer intacta).<br><br><b>🖨️ Saída Esperada:</b><br><code>['config.json', 'web.log']</code>",
+        "codigoInicial": "original = ['config.json', 'web.log']\n# Faça a cópia com .copy(), altere o backup e printe a original",
+        "gabarito": "['config.json', 'web.log']",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 61: Dicionários - Cadastro de Pets",
+        "descricao": "<b>🏢 Contexto:</b> Bem-vindo ao módulo de Dicionários! Dicionários utilizam chaves <code>{}</code> e armazenam dados no formato Chave-Valor. Um petshop organiza as fichas dos animais desta forma para facilitar pesquisas rápidas.<br><br><b>🎯 Missão:</b> Dado o dicionário com os dados do animal, extraia e printe apenas o valor associado à chave <code>'nome'</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>Rex</code>",
+        "codigoInicial": "pet = {'nome': 'Rex', 'especie': 'Cachorro', 'idade': 5}\n# Extraia a informação da chave 'nome' e printe",
+        "gabarito": "Rex",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 62: Atualização de Preços no Inventário",
+        "descricao": "<b>🏢 Contexto:</b> O sistema de inventário de uma mercearia precisa de atualizar o preço de um produto devido à inflação e, simultaneamente, adicionar uma nova propriedade para controlar a quantidade em stock.<br><br><b>🎯 Missão:</b> No dicionário fornecido, altere o valor da chave <code>'preco'</code> para 7.20 e adicione uma nova chave chamada <code>'stock'</code> com o valor numérico 50. No final, printe o dicionário modificado.<br><br><b>🖨️ Saída Esperada:</b><br><code>{'nome': 'Feijão', 'preco': 7.2, 'stock': 50}</code>",
+        "codigoInicial": "produto = {'nome': 'Feijão', 'preco': 6.50}\n# Atualize o preço, adicione o stock e printe",
+        "gabarito": "{'nome': 'Feijão', 'preco': 7.2, 'stock': 50}",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 63: Cancelamento de Serviço (Del)",
+        "descricao": "<b>🏢 Contexto:</b> No e-commerce, durante o checkout, o cliente decidiu remover a opção de embrulho para presente para reduzir o custo final do pedido.<br><br><b>🧮 Regra:</b> O comando <code>del dicionario['chave']</code> remove completamente uma propriedade do mapa de dados.<br><br><b>🎯 Missão:</b> Remova a chave <code>'presente'</code> do dicionário do pedido e printe o resultado final.<br><br><b>🖨️ Saída Esperada:</b><br><code>{'item': 'Pizza', 'valor': 45.0}</code>",
+        "codigoInicial": "pedido = {'item': 'Pizza', 'valor': 45.00, 'presente': True}\n# Elimine a chave 'presente' e printe o pedido",
+        "gabarito": "{'item': 'Pizza', 'valor': 45.0}",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 64: Autenticação de API (Chaves)",
+        "descricao": "<b>🏢 Contexto:</b> Um servidor web recebe dados de uma requisição de utilizador. Antes de processar, o sistema precisa de verificar se um parâmetro obrigatório de segurança (o 'token') foi enviado nas chaves do dicionário.<br><br><b>🎯 Missão:</b> Verifique se a chave <code>'token'</code> existe no dicionário usando o operador <code>in</code>. Se existir, printe 'Válido'. Caso contrário, printe 'Acesso Negado'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Acesso Negado</code>",
+        "codigoInicial": "requisicao = {'usuario': 'carlos123', 'nivel': 'gerente'}\n# Valide a existência da chave 'token'",
+        "gabarito": "Acesso Negado",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 65: Painel do Hotel (.keys)",
+        "descricao": "<b>🏢 Contexto:</b> O painel de controlo da receção de um hotel precisa de gerar uma listagem contendo apenas os números dos quartos que estão ocupados neste momento.<br><br><b>🧮 Regra:</b> O método <code>.keys()</code> retorna uma coleção isolada com todas as chaves mapeadas no dicionário.<br><br><b>🎯 Missão:</b> Utilize um laço <code>for</code> para percorrer as chaves do dicionário e printe os números dos quartos, um por linha.<br><br><b>🖨️ Saída Esperada:</b><br><code>101<br>102<br>201</code>",
+        "codigoInicial": "quartos_ocupados = {101: 'Ana', 102: 'Pedro', 201: 'Lucas'}\n# Percorra as chaves e printe uma por linha",
+        "gabarito": "101\n102\n201",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 66: Escala de Operários (.values)",
+        "descricao": "<b>🏢 Contexto:</b> O gestor de uma oficina mecânica precisa de exibir no ecrã principal o nome de todos os mecânicos escalados para os turnos do dia, ocultando os nomes dos turnos.<br><br><b>🧮 Regra:</b> O método <code>.values()</code> extrai apenas os valores guardados no dicionário, ignorando as chaves.<br><br><b>🎯 Missão:</b> Utilize um laço <code>for</code> combinado com <code>.values()</code> para imprimir o nome dos mecânicos da escala, um por linha.<br><br><b>🖨️ Saída Esperada:</b><br><code>Roberto<br>Juliana<br>Cláudio</code>",
+        "codigoInicial": "escala = {'Manhã': 'Roberto', 'Tarde': 'Juliana', 'Noite': 'Cláudio'}\n# Percorra os valores e printe",
+        "gabarito": "Roberto\nJuliana\nCláudio",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 67: Relatório de Faturamento (.items)",
+        "descricao": "<b>🏢 Contexto:</b> Uma empresa concessionária precisa de mapear e imprimir um relatório rápido associando o modelo do veículo ao seu ano de fabrico de forma organizada.<br><br><b>🧮 Regra:</b> O método <code>.items()</code> permite desestruturar o dicionário num laço extraindo simultaneamente a chave e o valor: <code>for chave, valor in dicionario.items():</code>.<br><br><b>🎯 Missão:</b> Percorra o dicionário de veículos com <code>.items()</code> e imprima cada par no formato exato 'Modelo: Ano'.<br><br><b>🖨️ Saída Esperada:</b><br><code>Fusca: 1975<br>Gol: 2010</code>",
+        "codigoInicial": "veiculos = {'Fusca': 1975, 'Gol': 2010}\n# Escreva o laço utilizando .items() e printe",
+        "gabarito": "Fusca: 1975\nGol: 2010",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 68: Contador de Votos de Associação",
+        "descricao": "<b>🏢 Contexto:</b> Um sistema eleitoral de bairro recolheu os votos textuais numa lista e precisa de consolidar a contagem totalizada de votos para cada chapa utilizando um dicionário contador.<br><br><b>🎯 Missão:</b> Crie um dicionário vazio chamado <code>contagem = {}</code>. Percorra a lista de votos com um laço <code>for</code>. Se a chapa já existir no dicionário, some 1 ao seu valor, senão, inicialize a chave com o valor 1. Printe o dicionário de contagem final.<br><br><b>🖨️ Saída Esperada:</b><br><code>{'Chapa A': 3, 'Chapa B': 2}</code>",
+        "codigoInicial": "votos = ['Chapa A', 'Chapa B', 'Chapa A', 'Chapa A', 'Chapa B']\n# Desenvolva a lógica do contador e printe",
+        "gabarito": "{'Chapa A': 3, 'Chapa B': 2}",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 69: Triagem de Clínica Médica (Ninhos)",
+        "descricao": "<b>🏢 Contexto:</b> Bancos de dados de saúde utilizam Dicionários Aninhados (um dicionário dentro do outro) para organizar registos complexos. O CPF serve como chave principal e os dados internos são o valor.<br><br><b>🎯 Missão:</b> No dicionário de pacientes fornecido, pesquise, extraia e printe apenas o nome do plano de saúde da paciente 'Rita' (chave de CPF '456').<br><br><b>🖨️ Saída Esperada:</b><br><code>SUS</code>",
+        "codigoInicial": "pacientes = {'123': {'nome': 'Luiz', 'plano': 'Unimed'}, '456': {'nome': 'Rita', 'plano': 'SUS'}}\n# Extraia a informação aninhada e printe",
+        "gabarito": "SUS",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 70: Filtragem de Duplicados (Sets)",
+        "descricao": "<b>🏢 Contexto:</b> Bem-vindo ao estudo dos Conjuntos (Sets)! Conjuntos matemáticos em Python são declarados com <code>set()</code> e possuem uma propriedade única: **eles proíbem elementos repetidos** automaticamente.<br><br><b>🎯 Missão:</b> Uma listagem de IDs de acesso registrou entradas duplicadas. Converta a lista <code>registros</code> para um conjunto usando <code>set()</code>. Para estabilizar o output no teste, converta o resultado de volta para uma lista ordenada usando <code>sorted(list(seu_conjunto))</code> e printe.<br><br><b>🖨️ Saída Esperada:</b><br><code>[10, 20, 30]</code>",
+        "codigoInicial": "registros = [10, 20, 10, 30, 20]\n# Remova a duplicação, ordene a lista final e printe",
+        "gabarito": "[10, 20, 30]",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 71: Filtro de Termos Proibidos (.add)",
+        "descricao": "<b>🏢 Contexto:</b> Um filtro de segurança de uma rede social gerencia um conjunto de palavras bloqueadas para moderação automática. Como se trata de um conjunto, adicionar termos repetidos não gera peso extra na memória.<br><br><b>🎯 Missão:</b> Adicione a palavra 'dinheiro' ao conjunto <code>spam</code> usando o método <code>.add()</code>. No final, printe a quantidade total de termos únicos guardados no filtro usando a função <code>len()</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>3</code>",
+        "codigoInicial": "spam = {'gratis', 'promocao'}\n# Adicione a palavra e printe o comprimento",
+        "gabarito": "3",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 72: Cruzamento de Dados (.intersection)",
+        "descricao": "<b>🏢 Contexto:</b> Uma plataforma de streaming quer realizar uma campanha de marketing cruzado identificando utilizadores que assistiram simultaneamente aos dois filmes mais populares do catálogo.<br><br><b>🧮 Regra:</b> O método <code>.intersection()</code> encontra e isola apenas os elementos que existem em ambos os conjuntos ao mesmo tempo.<br><br><b>🎯 Missão:</b> Descubra quais utilizadores assistiram a ambos os filmes. Converta o conjunto resultante numa lista ordenada usando <code>sorted(list(...))</code> e printe o resultado.<br><br><b>🖨️ Saída Esperada:</b><br><code>['Ana', 'Bruno']</code>",
+        "codigoInicial": "filme_a = {'Ana', 'Bruno', 'Carlos'}\nfilme_b = {'Bruno', 'Diana', 'Ana'}\n# Realize a interseção, ordene e printe",
+        "gabarito": "['Ana', 'Bruno']",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 73: Catálogo Unificado (.union)",
+        "descricao": "<b>🏢 Contexto:</b> Duas empresas parceiras sediadas em Maceió decidiram fundir as suas bases de dados de fornecedores de TI locais para criar um catálogo unificado de compras de forma limpa, sem repetições.<br><br><b>🧮 Regra:</b> O método <code>.union()</code> funde dois conjuntos removendo automaticamente todas as ocorrências redundantes.<br><br><b>🎯 Missão:</b> Una as duas coleções de fornecedores e printe a quantidade total de parceiros mapeados no catálogo unificado final usando <code>len()</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>3</code>",
+        "codigoInicial": "fornecedores_a = {'Empresa X', 'Empresa Y'}\nfornecedores_b = {'Empresa Y', 'Empresa Z'}\n# Junte os conjuntos e printe o tamanho",
+        "gabarito": "3",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 74: Auditoria de Marketing (.difference)",
+        "descricao": "<b>🏢 Contexto:</b> O setor de marketing disparou cupões de desconto para uma lista seleta de potenciais clientes, mas precisa de auditar quais desses clientes receberam o benefício e ainda NÃO efetuaram compras no e-commerce.<br><br><b>🧮 Regra:</b> O método <code>conjunto_a.difference(conjunto_b)</code> retorna apenas os elementos que pertencem exclusivamente ao conjunto A e não estão no conjunto B.<br><br><b>🎯 Missão:</b> Descubra quem recebeu o cupão mas não efetuou compras. Converta para uma lista ordenada usando <code>sorted(list(...))</code> e printe.<br><br><b>🖨️ Saída Esperada:</b><br><code>['Sônia']</code>",
+        "codigoInicial": "cupons_enviados = {'Roberto', 'Sônia', 'Alice'}\nclientes_compraram = {'Alice', 'Roberto'}\n# Calcule a diferença, ordene e printe",
+        "gabarito": "['Sônia']",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 75: Limpeza de Caixa (.clear)",
+        "descricao": "<b>🏢 Contexto:</b> Ao fechar o expediente de um restaurante local, o terminal de POS precisa de limpar completamente da memória RAM todos os dados temporários da mesa em foco para que fique pronta para o dia seguinte.<br><br><b>🎯 Missão:</b> Limpe todas as propriedades internas do dicionário <code>mesa_atual</code> utilizando o método <code>.clear()</code> e printe o objeto resultante (que deve aparecer vazio).<br><br><b>🖨️ Saída Esperada:</b><br><code>{}</code>",
+        "codigoInicial": "mesa_atual = {'pedido': 104, 'total': 85.50}\n# Limpe o dicionário e printe",
+        "gabarito": "{}",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 76: A Primeira Função (def)",
+        "descricao": "<b>🏢 Contexto:</b> Num centro de convivência, o painel de recados precisa de dar as boas-vindas todos os dias. Em vez de escrever o print várias vezes, o professor de informática ensinou a encapsular isso numa função.<br><br><b>🎯 Missão:</b> Crie uma função chamada <code>saudacao()</code> que não recebe nenhum parâmetro e apenas printe 'Bom dia, turma!'. Logo abaixo (fora da função), chame a função digitando <code>saudacao()</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>Bom dia, turma!</code>",
+        "codigoInicial": "# Defina a função, e depois chame-a",
+        "gabarito": "Bom dia, turma!",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 77: Funções com Parâmetros",
+        "descricao": "<b>🏢 Contexto:</b> Uma aluna quer calcular automaticamente a sua idade no ano atual, sem fazer contas de cabeça.<br><br><b>🎯 Missão:</b> Crie uma função <code>calcular_idade(ano_nascimento)</code> que subtraia o ano de nascimento de 2026 e printe o resultado. Fora da função, invoque-a passando o valor 1965.<br><br><b>🖨️ Saída Esperada:</b><br><code>61</code>",
+        "codigoInicial": "# Defina a função e passe o parâmetro",
+        "gabarito": "61",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 78: Retorno de Valores (return)",
+        "descricao": "<b>🏢 Contexto:</b> Uma função que apenas dá 'print' não permite que o resultado seja guardado ou usado noutras contas. O comando <code>return</code> devolve o valor para o sistema.<br><br><b>🎯 Missão:</b> Crie <code>somar_feira(valor1, valor2)</code> que faça um <code>return</code> da soma dos dois. Fora da função, crie uma variável <code>total = somar_feira(45.50, 12.00)</code> e printe essa variável.<br><br><b>🖨️ Saída Esperada:</b><br><code>57.5</code>",
+        "codigoInicial": "# Use return na função",
+        "gabarito": "57.5",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 79: Parâmetros Padrão (Default)",
+        "descricao": "<b>🏢 Contexto:</b> O sistema da academia de Pilates envia lembretes por SMS. Se o cadastro não tiver o nome do aluno, ele deve usar 'Aluno(a)' por padrão para não dar erro.<br><br><b>🎯 Missão:</b> Crie <code>enviar_sms(nome='Aluno(a)')</code> que printe a f-string 'Lembrete para {nome}'. Chame a função duas vezes: a primeira passando 'Sônia' e a segunda sem passar nada nos parênteses.<br><br><b>🖨️ Saída Esperada:</b><br><code>Lembrete para Sônia<br>Lembrete para Aluno(a)</code>",
+        "codigoInicial": "# Função com default",
+        "gabarito": "Lembrete para Sônia\nLembrete para Aluno(a)",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 80: Monitor de Pressão Arterial",
+        "descricao": "<b>🏢 Contexto:</b> Vamos criar um pequeno classificador de saúde. Se a pressão sistólica for 12 e a diastólica 8, está excelente!<br><br><b>🎯 Missão:</b> Crie <code>checar_pressao(sistolica, diastolica)</code>. Se for igual a 12 e 8 (use <code>and</code>), retorne 'Normal'. Senão, retorne 'Alterada'. Printe o resultado de <code>checar_pressao(14, 9)</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>Alterada</code>",
+        "codigoInicial": "# Lógica de saúde com retorno",
+        "gabarito": "Alterada",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 81: Múltiplos Argumentos (*args)",
+        "descricao": "<b>🏢 Contexto:</b> Num café, o cliente pode comprar 2, 3 ou 10 pães. Não sabemos quantos itens ele vai levar. O <code>*args</code> permite passar uma quantidade infinita de números para a função, transformando-os numa tupla.<br><br><b>🎯 Missão:</b> Crie <code>somar_tudo(*valores)</code> que retorne a soma de todos os itens (dica: use a função <code>sum(valores)</code>). Printe o resultado de <code>somar_tudo(10, 5, 2, 8)</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>25</code>",
+        "codigoInicial": "# Função com *args",
+        "gabarito": "25",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 82: Argumentos Nomeados (**kwargs)",
+        "descricao": "<b>🏢 Contexto:</b> Ao preencher a ficha de um paciente no posto médico, as informações variam (alguns têm alergias, outros relatam dores). O <code>**kwargs</code> agrupa esses dados extras num Dicionário.<br><br><b>🎯 Missão:</b> Crie <code>ficha_medica(**dados)</code>. Dentro dela, faça um <code>return dados.get('alergia', 'Nenhuma')</code>. Printe o resultado chamando a função assim: <code>ficha_medica(nome='João', alergia='Dipirona')</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>Dipirona</code>",
+        "codigoInicial": "# Função com **kwargs",
+        "gabarito": "Dipirona",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 83: Retornando Tuplas (Dois Valores)",
+        "descricao": "<b>🏢 Contexto:</b> Um medidor de glicemia avalia a amostra e devolve duas coisas de uma vez: o valor numérico e o diagnóstico (se está alto ou bom).<br><br><b>🎯 Missão:</b> Crie <code>medir_glicose(valor)</code>. Se o valor for menor que 100, retorne a tupla <code>(valor, 'Normal')</code>. Printe o resultado de <code>medir_glicose(85)</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>(85, 'Normal')</code>",
+        "codigoInicial": "# Retorno duplo",
+        "gabarito": "(85, 'Normal')",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 84: Uma Função Chamando Outra",
+        "descricao": "<b>🏢 Contexto:</b> Na contabilidade, calcular o salário líquido exige dois passos: calcular o imposto e depois subtrair do bruto. Vamos separar as responsabilidades.<br><br><b>🎯 Missão:</b> Crie <code>imposto(bruto)</code> que retorne bruto * 0.10. Em seguida, crie <code>salario_liquido(bruto)</code> que retorne o bruto menos o resultado de <code>imposto(bruto)</code>. Printe <code>salario_liquido(2000)</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>1800.0</code>",
+        "codigoInicial": "# Duas funções interligadas",
+        "gabarito": "1800.0",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 85: Escopo Local vs Global",
+        "descricao": "<b>🏢 Contexto:</b> Variáveis criadas DENTRO de uma função nascem e morrem lá dentro (Escopo Local). Elas não atrapalham o programa de fora.<br><br><b>🎯 Missão:</b> Temos <code>saldo = 100</code> fora da função. Crie <code>depositar()</code> que defina uma nova variável <code>saldo = 500</code> lá dentro e printe. Em seguida, chame <code>depositar()</code> e depois printe o <code>saldo</code> de fora para provar que são independentes.<br><br><b>🖨️ Saída Esperada:</b><br><code>500<br>100</code>",
+        "codigoInicial": "saldo = 100\n# Defina a função e teste os escopos",
+        "gabarito": "500\n100",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 86: Modularização - O Primeiro Módulo",
+        "descricao": "<b>🏢 Contexto:</b> Programas grandes dividem-se em Módulos (células ou ficheiros separados) para organizar o trabalho. Um programador faz a regra de negócio, outro faz a tela.<br><br><b>🎯 Missão:</b> Na Célula 1, crie a função <code>calcular_troco(pago, valor)</code> que retorna a subtração. Na Célula 2, não reescreva a lógica! Apenas printe o resultado de <code>calcular_troco(50, 32)</code>.",
+        "codigoModulo": "def calcular_troco(pago, valor):\n    return pago - valor",
+        "codigoPrincipal": "print(calcular_troco(50, 32))",
+        "gabarito": "18",
+        "modulos": true
+    },
+    {
+        "titulo": "Fase 87: Módulos - Formatação de CPF",
+        "descricao": "<b>🏢 Contexto:</b> O sistema do posto de atendimento sempre precisa ocultar os primeiros dígitos do CPF na impressão do talão de senha.<br><br><b>🎯 Missão:</b> Na Célula 1, crie <code>ocultar_cpf(cpf_str)</code> que receba uma string de 11 números e retorne f'***.***.{cpf_str[6:9]}-{cpf_str[9:11]}'. Na Célula 2, printe o teste para '12345678900'.",
+        "codigoModulo": "def ocultar_cpf(cpf_str):\n    return f'***.***.{cpf_str[6:9]}-{cpf_str[9:11]}'",
+        "codigoPrincipal": "print(ocultar_cpf('12345678900'))",
+        "gabarito": "***.***.789-00",
+        "modulos": true
+    },
+    {
+        "titulo": "Fase 88: Módulos - Validação de Voto",
+        "descricao": "<b>🏢 Contexto:</b> Ferramenta cívica: uma função que entra no portal e avisa as regras de voto pela idade.<br><br><b>🎯 Missão:</b> Na Célula 1, crie <code>status_voto(idade)</code> que retorna 'Opcional' (16, 17 ou >70), 'Obrigatório' (18 a 70) ou 'Não vota' (<16). Na Célula 2, printe o resultado para a idade de 75 anos.",
+        "codigoModulo": "def status_voto(idade):\n    if idade < 16: return 'Não vota'\n    elif idade < 18 or idade > 70: return 'Opcional'\n    else: return 'Obrigatório'",
+        "codigoPrincipal": "print(status_voto(75))",
+        "gabarito": "Opcional",
+        "modulos": true
+    },
+    {
+        "titulo": "Fase 89: Módulos - Desconto para Aposentados",
+        "descricao": "<b>🏢 Contexto:</b> A companhia de água de Maceió tem uma tarifa social. O cálculo da conta depende do volume gasto e do status do cidadão.<br><br><b>🎯 Missão:</b> Na Célula 1, crie <code>conta_agua(consumo, aposentado=False)</code>. A tarifa base é R$ 2 por litro. Se for aposentado, o total tem 50% de desconto (multiplica por 0.5). Na Célula 2, calcule e printe a conta de 15 litros para um aposentado (passe True).",
+        "codigoModulo": "def conta_agua(consumo, aposentado=False):\n    total = consumo * 2\n    if aposentado:\n        total *= 0.5\n    return total",
+        "codigoPrincipal": "print(conta_agua(15, True))",
+        "gabarito": "15.0",
+        "modulos": true
+    },
+    {
+        "titulo": "Fase 90: Recursão Simples",
+        "descricao": "<b>🏢 Contexto:</b> Uma função recursiva é uma função que chama a si mesma para criar um laço sem precisar do `while`. Vamos fazer a contagem regressiva para a saída da excursão!<br><br><b>🎯 Missão:</b> Na Célula 1, crie <code>contagem(n)</code>. Se n == 0, printe 'Partiu!'. Senão, printe <code>n</code> e retorne <code>contagem(n-1)</code>. Na Célula 2, inicie a contagem com o número 3.",
+        "codigoModulo": "def contagem(n):\n    if n == 0:\n        print('Partiu!')\n    else:\n        print(n)\n        contagem(n-1)",
+        "codigoPrincipal": "contagem(3)",
+        "gabarito": "3\n2\n1\nPartiu!",
+        "modulos": true
+    },
+    {
+        "titulo": "Fase 91: Orientação a Objetos - Classe Pet",
+        "descricao": "<b>🏢 Contexto:</b> Agora entramos no mundo das CLASSES. Uma classe é o 'molde' para criar objetos.<br><br><b>🎯 Missão:</b> Crie a classe <code>Pet</code> com o método <code>__init__(self, nome)</code>. O método deve salvar <code>self.nome = nome</code>. Instancie um pet chamado 'Totó' e printe <code>pet.nome</code>.",
+        "codigoInicial": "class Pet:\n    def __init__(self, nome):\n        self.nome = nome\n\npet = Pet('Totó')\nprint(pet.nome)",
+        "gabarito": "Totó",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 92: Métodos de Classe",
+        "descricao": "<b>🏢 Contexto:</b> Objetos não apenas guardam dados, eles realizam ações (métodos).<br><br><b>🎯 Missão:</b> Na classe <code>Pet</code>, adicione um método chamado <code>latir(self)</code> que retorne 'Au au!'. Instancie o objeto e printe o resultado do método <code>latir()</code>.",
+        "codigoInicial": "class Pet:\n    def __init__(self, nome):\n        self.nome = nome\n    def latir(self):\n        return 'Au au!'\n\npet = Pet('Totó')\nprint(pet.latir())",
+        "gabarito": "Au au!",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 93: Sistema de Conta Bancária",
+        "descricao": "<b>🏢 Contexto:</b> Um banco precisa de objetos que saibam o seu próprio saldo e como depositar dinheiro.<br><br><b>🎯 Missão:</b> Classe <code>Conta</code> com <code>saldo</code> inicial. Método <code>depositar(valor)</code> que aumenta o saldo. Deposite 100 em uma conta que começa com 50 e printe o saldo final.",
+        "codigoInicial": "class Conta:\n    def __init__(self, saldo):\n        self.saldo = saldo\n    def depositar(self, valor):\n        self.saldo += valor\n\nc = Conta(50)\nc.depositar(100)\nprint(c.saldo)",
+        "gabarito": "150",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 94: Herança (Pai e Filho)",
+        "descricao": "<b>🏢 Contexto:</b> Herança permite que uma classe 'Filha' aproveite tudo o que a classe 'Pai' tem, adicionando coisas novas.<br><br><b>🎯 Missão:</b> Classe <code>Animal</code> com método <code>comer()</code> ('Comendo'). Classe <code>Gato(Animal)</code>. Instancie Gato e chame <code>comer()</code>.",
+        "codigoInicial": "class Animal:\n    def comer(self):\n        return 'Comendo'\n\nclass Gato(Animal):\n    pass\n\ng = Gato()\nprint(g.comer())",
+        "gabarito": "Comendo",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 95: Sobrescrita de Métodos",
+        "descricao": "<b>🏢 Contexto:</b> O filho pode fazer o mesmo que o pai, mas de um jeito próprio.<br><br><b>🎯 Missão:</b> Na classe <code>Gato</code> da questão anterior, adicione o método <code>comer()</code> que retorne 'Comendo ração'. Instancie o Gato e printe o <code>comer()</code>.",
+        "codigoInicial": "class Animal:\n    def comer(self):\n        return 'Comendo'\n\nclass Gato(Animal):\n    def comer(self):\n        return 'Comendo ração'\n\ng = Gato()\nprint(g.comer())",
+        "gabarito": "Comendo ração",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 96: Encapsulamento Simples",
+        "descricao": "<b>🏢 Contexto:</b> Algumas informações, como o saldo, não devem ser alteradas diretamente de fora da classe, apenas via métodos.<br><br><b>🎯 Missão:</b> Na classe <code>Conta</code>, tente mudar o saldo usando <code>c.saldo = 0</code> (mas o atributo é público). Printe o saldo após a tentativa para mostrar que foi alterado (pois não há proteção).",
+        "codigoInicial": "class Conta:\n    def __init__(self, saldo):\n        self.saldo = saldo\n\nc = Conta(100)\nc.saldo = 0\nprint(c.saldo)",
+        "gabarito": "0",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 97: Classe Produto de Loja",
+        "descricao": "<b>🏢 Contexto:</b> Gerenciamento de inventário básico.<br><br><b>🎯 Missão:</b> Crie classe <code>Produto</code> com nome e preço. Método <code>aplicar_desconto(porcentagem)</code> que calcula o novo preço. Preço 100, desconto de 10%. Printe o novo preço.",
+        "codigoInicial": "class Produto:\n    def __init__(self, nome, preco):\n        self.nome = nome\n        self.preco = preco\n    def aplicar_desconto(self, porcentagem):\n        self.preco -= self.preco * (porcentagem/100)\n\np = Produto('Cadeira', 100)\np.aplicar_desconto(10)\nprint(p.preco)",
+        "gabarito": "90.0",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 98: Polimorfismo",
+        "descricao": "<b>🏢 Contexto:</b> Diferentes objetos respondendo ao mesmo comando de formas distintas.<br><br><b>🎯 Missão:</b> <code>Cachorro</code> faz 'Au', <code>Gato</code> faz 'Miau'. Crie uma lista com um objeto de cada e faça um for chamando <code>som()</code> de cada um.",
+        "codigoInicial": "class Cachorro:\n    def som(self): return 'Au'\nclass Gato:\n    def som(self): return 'Miau'\n\nanimais = [Cachorro(), Gato()]\nfor a in animais:\n    print(a.som())",
+        "gabarito": "Au\nMiau",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 99: Classe com Método Estático",
+        "descricao": "<b>🏢 Contexto:</b> Métodos que não dependem de instância, mas pertencem à classe.<br><br><b>🎯 Missão:</b> Crie a classe <code>Calculadora</code> com um método estático <code>somar(a, b)</code> que retorna a soma. Chame o método diretamente pela classe e printe o resultado de 5 + 7.",
+        "codigoInicial": "class Calculadora:\n    @staticmethod\n    def somar(a, b):\n        return a + b\n\nprint(Calculadora.somar(5, 7))",
+        "gabarito": "12",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 100: Classe com Propriedade",
+        "descricao": "<b>🏢 Contexto:</b> Controlar o acesso a atributos com getters/setters.<br><br><b>🎯 Missão:</b> Crie a classe <code>Pessoa</code> com atributo <code>_idade</code>. Crie uma propriedade <code>idade</code> com getter e setter que valida se o valor é não negativo. Defina idade 25 e printe.",
+        "codigoInicial": "class Pessoa:\n    def __init__(self, idade):\n        self._idade = idade\n    @property\n    def idade(self):\n        return self._idade\n    @idade.setter\n    def idade(self, valor):\n        if valor >= 0:\n            self._idade = valor\n\np = Pessoa(25)\nprint(p.idade)",
+        "gabarito": "25",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 101: Funções Lambda (Anónimas)",
+        "descricao": "<b>🏢 Contexto:</b> Às vezes, a função é tão pequena que não precisamos de usar o <code>def</code>. O Python permite criar mini-funções de uma linha só, chamadas de Lambdas.<br><br><b>🎯 Missão:</b> Crie a variável <code>dobro = lambda x: x * 2</code>. Agora, basta invocar essa variável como se fosse uma função. Printe o resultado de <code>dobro(15)</code>.<br><br><b>🖨️ Saída Esperada:</b><br><code>30</code>",
+        "codigoInicial": "dobro = lambda x: x * 2\nprint(dobro(15))",
+        "gabarito": "30",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 102: Filtragem com Lambda (filter)",
+        "descricao": "<b>🏢 Contexto:</b> Uma lista de medições de glicose diárias tem vários valores. Queremos extrair rapidamente apenas os valores que estão altos (acima de 100).<br><br><b>🎯 Missão:</b> <code>medicoes = [85, 110, 95, 130]</code>. Use a função nativa <code>filter(lambda x: x > 100, medicoes)</code> e converta o resultado para lista usando <code>list()</code>. Printe a nova lista de valores altos.<br><br><b>🖨️ Saída Esperada:</b><br><code>[110, 130]</code>",
+        "codigoInicial": "medicoes = [85, 110, 95, 130]\nprint(list(filter(lambda x: x > 100, medicoes)))",
+        "gabarito": "[110, 130]",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 103: Transformação com Lambda (map)",
+        "descricao": "<b>🏢 Contexto:</b> Os preços da vitrina subiram R$ 5 de forma geral devido a um imposto. O <code>map()</code> aplica uma transformação a todos os itens da lista ao mesmo tempo.<br><br><b>🎯 Missão:</b> <code>precos = [20, 30, 40]</code>. Use <code>map(lambda p: p + 5, precos)</code>, converta para lista e printe os novos preços.<br><br><b>🖨️ Saída Esperada:</b><br><code>[25, 35, 45]</code>",
+        "codigoInicial": "precos = [20, 30, 40]\nprint(list(map(lambda p: p + 5, precos)))",
+        "gabarito": "[25, 35, 45]",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 104: Tratamento de Erros (try/except)",
+        "descricao": "<b>🏢 Contexto:</b> Quando um utilizador insere uma letra num campo numérico (como idade), o programa crasha. Precisamos de 'capturar' esse erro para o sistema não parar.<br><br><b>🎯 Missão:</b> Use <code>try/except ValueError</code> para converter 'abc' para inteiro e printar 'Entrada inválida' caso falhe.",
+        "codigoInicial": "try:\n    int('abc')\nexcept ValueError:\n    print('Entrada inválida')",
+        "gabarito": "Entrada inválida",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 105: Divisão Segura",
+        "descricao": "<b>🏢 Contexto:</b> Uma calculadora de taxas de juros não pode dividir por zero, pois isso causa um erro de <code>ZeroDivisionError</code>.<br><br><b>🎯 Missão:</b> Crie uma função <code>dividir(a, b)</code> que usa <code>try/except ZeroDivisionError</code>. Se o divisor for zero, retorne 'Erro: divisão por zero'. Teste com <code>dividir(10, 0)</code>.",
+        "codigoInicial": "def dividir(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return 'Erro: divisão por zero'\n\nprint(dividir(10, 0))",
+        "gabarito": "Erro: divisão por zero",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 106: Dicionários Aninhados Complexos",
+        "descricao": "<b>🏢 Contexto:</b> JSONs complexos de APIs de tempo.<br><br><b>🎯 Missão:</b> Extrair a temperatura de <code>dados = {'cidade': 'Maceio', 'tempo': {'temp': 28}}</code>. Printe o valor da temp.",
+        "codigoInicial": "dados = {'cidade': 'Maceio', 'tempo': {'temp': 28}}\nprint(dados['tempo']['temp'])",
+        "gabarito": "28",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 107: List Comprehension Simples",
+        "descricao": "<b>🏢 Contexto:</b> Gerar uma lista de quadrados de forma elegante.<br><br><b>🎯 Missão:</b> Lista de 1 a 5. Gere uma nova lista com os quadrados usando <code>[x**2 for x in lista]</code>. Printe-a.",
+        "codigoInicial": "lista = [1, 2, 3, 4, 5]\nprint([x**2 for x in lista])",
+        "gabarito": "[1, 4, 9, 16, 25]",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 108: Comprehension com Condicional",
+        "descricao": "<b>🏢 Contexto:</b> Filtrar apenas números pares.<br><br><b>🎯 Missão:</b> Lista 1 a 10. Gere lista só com pares usando <code>[x for x in lista if x % 2 == 0]</code>.",
+        "codigoInicial": "lista = range(1, 11)\nprint([x for x in lista if x % 2 == 0])",
+        "gabarito": "[2, 4, 6, 8, 10]",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 109: Gerador de Números (Yield)",
+        "descricao": "<b>🏢 Contexto:</b> Economia de memória.<br><br><b>🎯 Missão:</b> Função geradora que dá yield nos números de 1 a 3. Converta para lista e printe.",
+        "codigoInicial": "def gerador():\n    yield 1\n    yield 2\n    yield 3\n\nprint(list(gerador()))",
+        "gabarito": "[1, 2, 3]",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 110: Manipulação de String como Arquivo",
+        "descricao": "<b>🏢 Contexto:</b> Simule a leitura de um arquivo que contém a palavra 'Python' usando uma string.<br><br><b>🎯 Missão:</b> Dada a variável <code>conteudo = 'Python'</code>, printe o conteúdo.<br><br><b>🖨️ Saída Esperada:</b><br><code>Python</code>",
+        "codigoInicial": "conteudo = 'Python'\nprint(conteudo)",
+        "gabarito": "Python",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 111: Decoradores (Conceito)",
+        "descricao": "<b>🏢 Contexto:</b> Adicionar funcionalidades extras a uma função sem alterar o seu código original.<br><br><b>🎯 Missão:</b> Criar um print 'Executando' antes de qualquer função decorada.",
+        "codigoInicial": "def log(func):\n    def wrapper():\n        print('Executando')\n        func()\n    return wrapper\n\n@log\ndef teste():\n    print('Olá')\n\nteste()",
+        "gabarito": "Executando\nOlá",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 112: Manipulação de Data/Hora",
+        "descricao": "<b>🏢 Contexto:</b> Usar o módulo <code>datetime</code> para representar uma data fixa.<br><br><b>🎯 Missão:</b> Crie um objeto <code>datetime</code> para o ano 2026 e printe apenas o ano.<br><br><b>🖨️ Saída Esperada:</b><br><code>2026</code>",
+        "codigoInicial": "import datetime\ndata = datetime.datetime(2026, 1, 1)\nprint(data.year)",
+        "gabarito": "2026",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 113: Desafio Final - Jogo da Forca",
+        "descricao": "<b>🏢 Contexto:</b> Implementação de lógica básica de jogo.<br><br><b>🎯 Missão:</b> Verificar se uma letra (ex: 'a') está numa palavra (ex: 'casa').",
+        "codigoInicial": "palavra = 'casa'\nletra = 'a'\nprint(letra in palavra)",
+        "gabarito": "True",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 114: Validação de CPF Parcial",
+        "descricao": "<b>🏢 Contexto:</b> O primeiro passo de uma validação de CPF.<br><br><b>🎯 Missão:</b> Verificar se uma string tem 11 caracteres e é composta apenas de dígitos.",
+        "codigoInicial": "cpf = '12345678900'\nprint(len(cpf) == 11 and cpf.isdigit())",
+        "gabarito": "True",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 115: O Mestre Python",
+        "descricao": "<b>🏢 Contexto:</b> Consolidar todo o conhecimento.<br><br><b>🎯 Missão:</b> Criar uma classe <code>Estudante</code> que recebe nome e notas, calcula a média e retorna 'Aprovado' ou 'Reprovado'.",
+        "codigoInicial": "class Estudante:\n    def __init__(self, nome, notas):\n        self.nome = nome\n        self.notas = notas\n    def media(self):\n        return sum(self.notas)/len(self.notas)\n    def status(self):\n        return 'Aprovado' if self.media() >= 7 else 'Reprovado'\n\nest = Estudante('João', [8,9,7])\nprint(est.status())",
+        "gabarito": "Aprovado",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 116: Expressões Regulares - Validação de Email",
+        "descricao": "<b>🏢 Contexto:</b> Validar formato de email antes de cadastrar.<br><br><b>🎯 Missão:</b> Use <code>re.match</code> para verificar se o email 'teste@email.com' está no formato básico (contém '@' e '.').",
+        "codigoInicial": "import re\nemail = 'teste@email.com'\npadrao = r'^[\\w\\.-]+@[\\w\\.-]+\\.\\w+$'\nprint(bool(re.match(padrao, email)))",
+        "gabarito": "True",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 117: Ordenação com Lambda (sorted)",
+        "descricao": "<b>🏢 Contexto:</b> Ordenar uma lista de tuplas pelo segundo elemento.<br><br><b>🎯 Missão:</b> <code>dados = [(1, 'b'), (2, 'a'), (3, 'c')]</code>. Use <code>sorted</code> com <code>lambda</code> para ordenar pelo segundo elemento e printe.",
+        "codigoInicial": "dados = [(1, 'b'), (2, 'a'), (3, 'c')]\nprint(sorted(dados, key=lambda x: x[1]))",
+        "gabarito": "[(2, 'a'), (1, 'b'), (3, 'c')]",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 118: Somatório com Laço",
+        "descricao": "<b>🏢 Contexto:</b> Somar os elementos de uma lista usando um laço <code>for</code> (alternativa ao <code>reduce</code>).<br><br><b>🎯 Missão:</b> Dada a lista <code>[1,2,3,4]</code>, calcule a soma total com um acumulador e printe o resultado.<br><br><b>🖨️ Saída Esperada:</b><br><code>10</code>",
+        "codigoInicial": "lista = [1,2,3,4]\ntotal = 0\nfor n in lista:\n    total += n\nprint(total)",
+        "gabarito": "10",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 119: Gerenciamento de Contexto Simulado",
+        "descricao": "<b>🏢 Contexto:</b> Simular a escrita e leitura de um arquivo usando uma variável.<br><br><b>🎯 Missão:</b> Crie uma variável <code>texto = 'Olá mundo'</code> e printe-a.<br><br><b>🖨️ Saída Esperada:</b><br><code>Olá mundo</code>",
+        "codigoInicial": "texto = 'Olá mundo'\nprint(texto)",
+        "gabarito": "Olá mundo",
+        "modulos": false
+    },
+    {
+        "titulo": "Fase 120: Projeto Final - Sistema de Biblioteca",
+        "descricao": "<b>🏢 Contexto:</b> Aplicar todos os conceitos.<br><br><b>🎯 Missão:</b> Crie uma classe <code>Livro</code> com título, autor e disponível. Crie uma classe <code>Biblioteca</code> com lista de livros, métodos para adicionar, emprestar e devolver. Teste adicionando um livro e emprestando, printe o status.",
+        "codigoInicial": "class Livro:\n    def __init__(self, titulo, autor):\n        self.titulo = titulo\n        self.autor = autor\n        self.disponivel = True\n\nclass Biblioteca:\n    def __init__(self):\n        self.livros = []\n    def adicionar(self, livro):\n        self.livros.append(livro)\n    def emprestar(self, titulo):\n        for livro in self.livros:\n            if livro.titulo == titulo and livro.disponivel:\n                livro.disponivel = False\n                return f'Emprestado: {titulo}'\n        return 'Indisponível'\n    def devolver(self, titulo):\n        for livro in self.livros:\n            if livro.titulo == titulo:\n                livro.disponivel = True\n                return f'Devolvido: {titulo}'\n        return 'Não encontrado'\n\nb = Biblioteca()\nl = Livro('Python', 'Guido')\nb.adicionar(l)\nprint(b.emprestar('Python'))",
+        "gabarito": "Emprestado: Python",
+        "modulos": false
+    }
         ];
 
         // ============================================================
